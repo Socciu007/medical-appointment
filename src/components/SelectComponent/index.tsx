@@ -1,0 +1,34 @@
+import { ProFormSelect } from '@ant-design/pro-form'
+import type { Rule } from 'antd/es/form'
+
+type Option = {
+  label: string
+  value: string
+}
+
+type SelectComponentProps = {
+  name: string
+  label: string
+  options: Option[]
+  placeholder: string
+  rules?: Rule[]
+  dependencies?: string[]
+  width?: number | 'sm' | 'md' | 'lg' | 'xl' | 'xs'
+}
+
+const SelectComponent = ({ name, label, options, placeholder, rules, dependencies, width }: SelectComponentProps) => {
+  return (
+    <ProFormSelect
+      className="select-component"
+      name={name}
+      label={label}
+      options={options}
+      placeholder={placeholder}
+      dependencies={dependencies}
+      rules={rules}
+      width={width}
+    />
+  )
+}
+
+export default SelectComponent

@@ -1,0 +1,17 @@
+.header-component {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .header-component-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    h1 {
+      font-size: var(--font-size-base);
+    }
+    &-text {
+      font-weight: 500;
+    }
+  }
+}

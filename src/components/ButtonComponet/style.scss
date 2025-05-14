@@ -1,0 +1,25 @@
+.button-component {
+  .button-component-button {
+    width: 75px;
+    height: 30px;
+    padding: 8px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: var(--font-size-small);
+    border-radius: 5px;
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+    img {
+      width: 15px;
+      height: 15px;
+    }
+    span {
+      color: #fff;
+      height: 100%;
+      align-content: center;
+    }
+  }
+}
