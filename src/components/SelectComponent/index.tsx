@@ -1,5 +1,6 @@
 import { ProFormSelect } from '@ant-design/pro-form'
 import type { Rule } from 'antd/es/form'
+import './style.scss'
 
 type Option = {
   label: string

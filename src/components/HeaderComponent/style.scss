@@ -2,6 +2,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  padding: 10px 10px 10px 10px;
+  border-bottom: 1px solid #000;
   .header-component-title {
     display: flex;
     align-items: center;
@@ -13,5 +16,10 @@
     &-text {
       font-weight: 500;
     }
+  }
+  .header-component-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 }

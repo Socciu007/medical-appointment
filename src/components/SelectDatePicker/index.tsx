@@ -1,4 +1,5 @@
 import { ProFormDatePicker } from '@ant-design/pro-form'
+import './style.scss'
 
 type SelectDatePickerProps = {
   name: string
