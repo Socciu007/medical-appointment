@@ -3,11 +3,70 @@ import cardIcon from '/assets/icons/icon-card.svg'
 import redirectIcon from '/assets/icons/icon-redirect.svg'
 import contactIcon from '/assets/icons/icon-contact.svg'
 import serviceIcon from '/assets/icons/icon-list-service.svg'
+import cardBlueIcon from '/assets/icons/icon-card-blue.svg'
+import avatarIcon from '/assets/icons/icon-avatar.svg'
+import qrCodeIcon from '/assets/icons/icon-qr-code.svg'
+import savedIcon from '/assets/icons/icon-saved.svg'
+import watchIcon from '/assets/icons/icon-watch.svg'
 import InputComponent from '../../components/InputComponent'
 import SelectDatePicker from '../../components/SelectDatePicker'
 import SelectComponent from '../../components/SelectComponent'
 import { ProForm, ProFormCheckbox } from '@ant-design/pro-form'
 import './style.scss'
+import TableComponent from '../../components/TableComponent'
+
+const policyColumns = [
+  {
+    title: 'STT',
+    dataIndex: 'id'
+  },
+  {
+    title: 'Tên chính sách',
+    dataIndex: 'name'
+  },
+  {
+    title: 'Áp dụng',
+    dataIndex: 'apply'
+  }
+]
+
+const discountColumns = [
+  {
+    title: 'STT',
+    dataIndex: 'id'
+  },
+  {
+    title: 'Chương trình',
+    dataIndex: 'program'
+  },
+  {
+    title: 'Số thẻ',
+    dataIndex: 'cardNumber'
+  },
+  {
+    title: 'Áp dụng',
+    dataIndex: 'apply'
+  }
+]
+
+const queuePatientColumns = [
+  {
+    title: 'STT',
+    dataIndex: 'id'
+  },
+  {
+    title: 'Phòng thực hiện',
+    dataIndex: 'room'
+  },
+  {
+    title: 'BN chờ',
+    dataIndex: 'patient'
+  },
+  {
+    title: 'Tổng số',
+    dataIndex: 'total'
+  }
+]
 
 const PatientReception = () => {
   return (
@@ -24,7 +83,7 @@ const PatientReception = () => {
             {/* Infomation 1 */}
             <div className="form-1">
               <div className="form-1-title">
-                <img src={cardIcon} alt="icon-card" />
+                <img src={cardBlueIcon} alt="icon-card-blue" />
                 <h2>Thông tin hành chính</h2>
               </div>
               <div className="form-1-content">
@@ -38,6 +97,7 @@ const PatientReception = () => {
                     />
                     <SelectDatePicker
                       label="Ngày sinh:"
+                      placeholder="Chọn ngày sinh"
                       name="date"
                       // width={250}
                     />
@@ -90,7 +150,12 @@ const PatientReception = () => {
                   </div>
                 </div>
                 <div className="form-1-content-item">
-                  <div className="row" style={{ width: "100%" }}></div>
+                  <div className="avatar-qr-code">
+                    <img src={avatarIcon} alt="icon-avatar" />
+                    <div className='qr-code'>
+                      <img src={qrCodeIcon} alt="icon-qr-code" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -114,12 +179,11 @@ const PatientReception = () => {
                       label="Số CCCD:"
                       name="numberCCCD"
                       placeholder="Nhập số CCCD"
-                      // width={184}
                     />
                     <SelectDatePicker
                       label="Ngày cấp:"
-                      name="date"
-                      // width={184}
+                      name="dateCCCD"
+                      placeholder='Chọn ngày cấp'
                     />
                   </div>
                   <div className="row row-1">
@@ -132,7 +196,6 @@ const PatientReception = () => {
                       label="Thời hạn:"
                       name="timeLimitCCCD"
                       placeholder="Nhập thời hạn"
-                      // width={184}
                     />
                   </div>
                   <div className="row">
@@ -231,7 +294,7 @@ const PatientReception = () => {
             {/* Infomation 4 */}
             <div className="form-1">
               <div className="form-1-title">
-                <img src={contactIcon} alt="icon-contact" />
+                <img src={cardIcon} alt="icon-contact" />
                 <h2>Thông tin tiếp nhận</h2>
               </div>
               <div className="form-1-content">
@@ -240,6 +303,7 @@ const PatientReception = () => {
                     <SelectDatePicker
                       label="Ngày đăng ký:"
                       name="registerDate"
+                      placeholder='Chọn ngày đăng ký'
                       // width={184}
                     />
                     <SelectComponent
@@ -351,12 +415,50 @@ const PatientReception = () => {
             </div>
           </ProForm.Group>
           <ProForm.Group>
-            <div className="form-2">HHHH</div>
+            <div className="form-2">
+              <div className="form-2-title">
+                <img src={savedIcon} alt="icon-saved" />
+                <h2>Chính sách áp dụng</h2>
+              </div>
+              <TableComponent
+                columns={policyColumns}
+                dataSource={[]}
+                rowKey="id"
+                toolBarRender={false}
+                pagination={false}
+              />
+            </div>
+            <div className="form-2">
+              <div className="form-2-title">
+                <img src={savedIcon} alt="icon-saved" />
+                <h2>Phiếu giảm giá, thẻ trả trước</h2>
+              </div>
+              <TableComponent
+                columns={discountColumns}
+                dataSource={[]}
+                rowKey="id"
+                toolBarRender={false}
+                pagination={false}
+              />
+            </div>
+            <div className="form-2">
+              <div className="form-2-title">
+                <img src={watchIcon} alt="icon-watch" />
+                <h2>Số lượng bệnh nhân chờ</h2>
+              </div>
+              <TableComponent
+                columns={queuePatientColumns}
+                dataSource={[]}
+                rowKey="id"
+                toolBarRender={false}
+                pagination={false}
+              />
+            </div>
           </ProForm.Group>
         </ProForm>
       </div>
     </div>
-  );
+  )
 }
 
 export default PatientReception
