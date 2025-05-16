@@ -1,0 +1,38 @@
+.ant-pro-table {
+  .ant-table-container {
+    margin: 0 24px;
+    .ant-table-cell {
+      font-size: var(--font-size-small);
+    }
+  }
+
+  .search-form {
+    border-radius: 0;
+    margin: 30px auto 12px;
+    width: 97%;
+    form {
+      margin: 0;
+      padding: 18px;
+      border: 1px solid #9F9E9E;
+      width: 100% !important;
+      .ant-row {
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+        // .ant-col {
+        //   width: 100%;
+        //   .ant-form-item {
+        //     width: 100%;
+        //     > * {
+        //       width: 100%;
+        //     }
+        //   }
+        // }
+        .ant-col:last-child {
+          margin: 0;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

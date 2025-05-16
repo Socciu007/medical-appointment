@@ -1,11 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import './style.scss'
 import HeaderComponent from '../../components/HeaderComponent'
 import TableComponent from '../../components/TableComponent'
-
+import { SearchOutlined } from '@ant-design/icons'
+import { Button } from 'antd'
 const patientColumns = [
   {
     title: 'STT',
-    dataIndex: 'stt'
+    dataIndex: 'stt',
+    search: false
   },
   {
     title: 'PID',
@@ -13,7 +16,8 @@ const patientColumns = [
   },
   {
     title: 'Số BA mạn tính',
-    dataIndex: 'number'
+    dataIndex: 'number',
+    search: false
   },
   {
     title: 'Mã hồ sơ',
@@ -37,7 +41,8 @@ const patientColumns = [
   },
   {
     title: 'Ngày tạo',
-    dataIndex: 'createdAt'
+    dataIndex: 'createdAt',
+    search: false
   },
   {
     title: 'Ngày tiếp nhận',
@@ -45,7 +50,8 @@ const patientColumns = [
   },
   {
     title: 'Địa chỉ',
-    dataIndex: 'address'
+    dataIndex: 'address',
+    search: false
   },
   {
     title: 'Loại',
@@ -53,39 +59,47 @@ const patientColumns = [
   },
   {
     title: 'Chuyên khoa',
-    dataIndex: 'specialty'
+    dataIndex: 'specialty',
+    search: false
   },
   {
     title: 'Bác sĩ khám chính',
-    dataIndex: 'mainDoctor'
+    dataIndex: 'mainDoctor',
+    search: false
   },
   {
     title: 'Phòng khám chính',
-    dataIndex: 'mainRoom'
+    dataIndex: 'mainRoom',
+    search: false
   },
   {
     title: 'NV tiếp nhận',
     dataIndex: 'receiver'
   },
   {
-    title: 'NV cập nhận',
-    dataIndex: 'updater'
+    title: 'NV cập nhật',
+    dataIndex: 'updater',
+    search: false
   },
   {
-    title: 'Ngày cập nhận',
-    dataIndex: 'updatedAt'
+    title: 'Ngày cập nhật',
+    dataIndex: 'updatedAt',
+    search: false
   },
   {
     title: 'Đã thu tiền',
-    dataIndex: 'paided'
+    dataIndex: 'paided',
+    search: false
   },
   {
     title: 'Ghi chú',
-    dataIndex: 'note'
+    dataIndex: 'note',
+    search: false
   },
   {
     title: 'Tác vụ',
-    dataIndex: 'action'
+    dataIndex: 'action',
+    search: false
   }
 ]
 
@@ -103,8 +117,41 @@ const PatientManager = () => {
           <TableComponent
             rowKey="id"
             columns={patientColumns}
+            rowSelection={{
+              onChange: (selectedRowKeys, selectedRows) => {
+                console.log(
+                  `selectedRowKeys: ${selectedRowKeys}`,
+                  'selectedRows: ',
+                  selectedRows
+                )
+              }
+            }}
             dataSource={[]}
             pagination={false}
+            toolBarRender={false}
+            search={{
+              searchText: 'Tìm kiếm',
+              resetText: 'Làm mới',
+              className: 'search-form',
+              collapsed: false,
+              labelWidth: 100,
+              collapseRender: false,
+              optionRender: (_, props, dom) => {
+                return [
+                  ...dom.filter((item: any) => item.key !== 'submit'),
+                  <Button
+                    key="submit"
+                    className="search-button"
+                    icon={<SearchOutlined />}
+                    iconPosition="start"
+                    type="primary"
+                    onClick={() => {}}
+                  >
+                    Tìm kiếm
+                  </Button>
+                ]
+              }
+            }}
           />
         </div>
       </div>
