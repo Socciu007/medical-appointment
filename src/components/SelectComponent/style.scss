@@ -1,7 +1,8 @@
 .ant-select {
   .ant-select-selector {
     border-radius: 0;
-    .ant-select-selection-placeholder {
+    .ant-select-selection-placeholder,
+    .ant-select-selection-item {
       text-align: start;
     }
   }

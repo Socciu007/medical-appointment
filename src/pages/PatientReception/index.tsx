@@ -1,4 +1,5 @@
-import HeaderComponent from '../../components/HeaderComponent'
+import { ProForm, ProFormCheckbox } from '@ant-design/pro-form'
+import './style.scss'
 import cardIcon from '/assets/icons/icon-card.svg'
 import redirectIcon from '/assets/icons/icon-redirect.svg'
 import contactIcon from '/assets/icons/icon-contact.svg'
@@ -11,9 +12,12 @@ import watchIcon from '/assets/icons/icon-watch.svg'
 import InputComponent from '../../components/InputComponent'
 import SelectDatePicker from '../../components/SelectDatePicker'
 import SelectComponent from '../../components/SelectComponent'
-import { ProForm, ProFormCheckbox } from '@ant-design/pro-form'
-import './style.scss'
+import HeaderComponent from '../../components/HeaderComponent'
 import TableComponent from '../../components/TableComponent'
+import { nations } from '../../mocks/nation'
+import { genders } from '../../mocks/gender'
+import { identification } from '../../mocks/identification'
+import { jobs } from '../../mocks/jobs'
 
 const policyColumns = [
   {
@@ -68,6 +72,51 @@ const queuePatientColumns = [
   }
 ]
 
+const religionOptions = [
+  {
+    label: 'Không',
+    value: 'none'
+  },
+  {
+    label: 'Khác',
+    value: 'other'
+  }
+]
+
+const ethnicOptions = [
+  {
+    label: 'Kinh',
+    value: 'kinh'
+  },
+  {
+    label: 'Khác',
+    value: 'other'
+  }
+]
+
+const relationOptions = [
+  {
+    label: 'Bố',
+    value: 'father'
+  },
+  {
+    label: 'Mẹ',
+    value: 'mother'
+  },
+  {
+    label: 'Vợ chồng',
+    value: 'couple'
+  },
+  {
+    label: 'Bạn bè',
+    value: 'friend'
+  },
+  {
+    label: 'Khác',
+    value: 'other'
+  }
+]
+
 const PatientReception = () => {
   return (
     <div className="patient-reception-page">
@@ -93,13 +142,11 @@ const PatientReception = () => {
                       label="Họ tên:"
                       name="name"
                       placeholder="Nhập họ tên"
-                      // width={250}
                     />
                     <SelectDatePicker
                       label="Ngày sinh:"
                       placeholder="Chọn ngày sinh"
                       name="date"
-                      // width={250}
                     />
                   </div>
                   <div className="row">
@@ -107,14 +154,12 @@ const PatientReception = () => {
                       label="Giới tính:"
                       name="gender"
                       placeholder="Chọn giới tính"
-                      options={[]}
-                      // width={250}
+                      options={genders}
                     />
                     <InputComponent
                       label="Điện thoại:"
                       name="phone"
                       placeholder="Nhập điện thoại"
-                      // width={250}
                     />
                   </div>
                   <div className="row row-2">
@@ -122,7 +167,6 @@ const PatientReception = () => {
                       label="Địa chỉ HC:"
                       name="addressHC"
                       placeholder="Nhập địa chỉ HC"
-                      // width={650}
                     />
                   </div>
                   <div className="row row-2">
@@ -130,7 +174,6 @@ const PatientReception = () => {
                       label="Địa chỉ:"
                       name="address"
                       placeholder="Nhập địa chỉ"
-                      // width={650}
                     />
                   </div>
                   <div className="row">
@@ -138,21 +181,19 @@ const PatientReception = () => {
                       label="Email:"
                       name="email"
                       placeholder="Nhập email"
-                      // width={250}
                     />
                     <SelectComponent
                       label="Quốc tịch:"
                       name="nationality"
                       placeholder="Chọn quốc tịch"
-                      options={[]}
-                      // width={250}
+                      options={nations}
                     />
                   </div>
                 </div>
                 <div className="form-1-content-item">
                   <div className="avatar-qr-code">
                     <img src={avatarIcon} alt="icon-avatar" />
-                    <div className='qr-code'>
+                    <div className="qr-code">
                       <img src={qrCodeIcon} alt="icon-qr-code" />
                     </div>
                   </div>
@@ -172,8 +213,7 @@ const PatientReception = () => {
                       label="Loại giấy tờ:"
                       name="type"
                       placeholder="Chọn loại giấy tờ"
-                      options={[]}
-                      // width={184}
+                      options={identification}
                     />
                     <InputComponent
                       label="Số CCCD:"
@@ -183,7 +223,7 @@ const PatientReception = () => {
                     <SelectDatePicker
                       label="Ngày cấp:"
                       name="dateCCCD"
-                      placeholder='Chọn ngày cấp'
+                      placeholder="Chọn ngày cấp"
                     />
                   </div>
                   <div className="row row-1">
@@ -203,22 +243,19 @@ const PatientReception = () => {
                       label="Dân tộc:"
                       name="ethnic"
                       placeholder="Chọn dân tộc"
-                      options={[]}
-                      // width={184}
+                      options={ethnicOptions}
                     />
                     <SelectComponent
                       label="Tôn giáo:"
                       name="religion"
                       placeholder="Chọn tôn giáo"
-                      options={[]}
-                      // width={184}
+                      options={religionOptions}
                     />
                     <SelectComponent
                       label="Nghề nghiệp:"
                       name="job"
                       placeholder="Chọn nghề nghiệp"
-                      options={[]}
-                      // width={184}
+                      options={jobs}
                     />
                   </div>
                   <div className="row row-2">
@@ -256,7 +293,7 @@ const PatientReception = () => {
                       label="Giới tính:"
                       name="relativeGender"
                       placeholder="Chọn giới tính"
-                      options={[]}
+                      options={genders}
                       // width={184}
                     />
                   </div>
@@ -265,7 +302,7 @@ const PatientReception = () => {
                       label="Quan hệ:"
                       name="relation"
                       placeholder="Chọn quan hệ"
-                      options={[]}
+                      options={relationOptions}
                       // width={184}
                     />
                     <InputComponent
@@ -303,7 +340,7 @@ const PatientReception = () => {
                     <SelectDatePicker
                       label="Ngày đăng ký:"
                       name="registerDate"
-                      placeholder='Chọn ngày đăng ký'
+                      placeholder="Chọn ngày đăng ký"
                       // width={184}
                     />
                     <SelectComponent
@@ -391,9 +428,7 @@ const PatientReception = () => {
                   </div>
                   <div className="add-info">
                     <div className="priority">
-                      <ProFormCheckbox
-                        name="priority"
-                      />
+                      <ProFormCheckbox name="priority" />
                       <p>Ưu tiên</p>
                     </div>
                     <SelectComponent
@@ -404,9 +439,7 @@ const PatientReception = () => {
                       // width={184}
                     />
                     <div className="priority">
-                      <ProFormCheckbox
-                        name="paymentAfter"
-                      />
+                      <ProFormCheckbox name="paymentAfter" />
                       <p>Thanh toán sau</p>
                     </div>
                   </div>
@@ -458,7 +491,7 @@ const PatientReception = () => {
         </ProForm>
       </div>
     </div>
-  )
+  );
 }
 
 export default PatientReception
