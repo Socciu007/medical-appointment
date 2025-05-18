@@ -1,14 +1,65 @@
 import './style.scss'
-import HeaderComponent from '../../components/HeaderComponent'
-import ButtonComponent from '../../components/ButtonComponent'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ProForm from '@ant-design/pro-form'
+import HeaderComponent from '../../components/HeaderComponent'
+import ButtonComponent from '../../components/ButtonComponent'
 import InputComponent from '../../components/InputComponent'
 import SelectDatePicker from '../../components/SelectDatePicker'
 import SelectComponent from '../../components/SelectComponent'
+import TableComponent from '../../components/TableComponent'
+
+const serviceColumns = [
+  {
+    title: 'Nhóm dịch vụ',
+    dataIndex: 'serviceGroup',
+    key: 'serviceGroup'
+  },
+  {
+    title: 'Mã dịch vụ',
+    dataIndex: 'serviceCode',
+    key: 'serviceCode'
+  },
+  {
+    title: 'Tên dịch vụ',
+    dataIndex: 'serviceName',
+    key: 'serviceName'
+  },
+  {
+    title: 'Bác sĩ thực hiện',
+    dataIndex: 'doctor',
+    key: 'doctor'
+  },
+  {
+    title: 'Tác vụ',
+    dataIndex: 'action',
+    key: 'action',
+    render: () => {
+      return <ButtonComponent title="Xóa" color="#B9B9B9" onClick={() => {}} />
+    }
+  }
+]
+
+interface ServiceProps {
+  serviceGroup: string
+  serviceCode?: string
+  serviceName: string
+  doctor: string
+}
 
 const AddAppointment = () => {
   const navigate = useNavigate()
+  const [serviceData, setServiceData] = useState<ServiceProps[]>([])
+
+  // Handle add service
+  const handleAddService = async (values: ServiceProps) => {
+    setServiceData([...serviceData, {
+      serviceGroup: values.serviceGroup,
+      serviceName: values.serviceName,
+      doctor: values.doctor
+    }])
+    return true
+  }
   return (
     <div className="add-appointment-page">
       <div className="container">
@@ -18,7 +69,7 @@ const AddAppointment = () => {
         <div className="container-content">
           <div className="container-content-header">
             <div className="container-content-header-title">
-              <p>Thông tin khách hàng đặt hẹn</p>
+              <p>Thêm thông tin đặt hẹn</p>
             </div>
             <div className="container-content-header-actions">
               <ButtonComponent title="Thoát" color="#B9B9B9" onClick={() => navigate('/appointment-manager')} />
@@ -60,7 +111,27 @@ const AddAppointment = () => {
               </ProForm.Group>
             </ProForm>
           </div>
-          <div className="container-content-body"></div>
+          {/* Infomation 2 */}
+          <div className="container-content-body border-top">
+            <div className="container-content-body-title">Thông tin dịch vụ đặt hẹn</div>
+            <ProForm submitter={{
+              render: () => {
+                return <ButtonComponent title="Thêm dịch vụ" color="#10B981" styleProps={{ width: '120px' }} />
+              }
+            }} initialValues={{
+              serviceData: serviceData
+            }} onFinish={async (values: ServiceProps) => {
+              await handleAddService(values)
+              return true
+            }}>
+              <ProForm.Group>
+                <InputComponent label="Nhóm dịch vụ" name="serviceGroup" placeholder="Nhập nhóm dịch vụ" />
+                <InputComponent label="Dịch vụ hẹn" name="serviceName" placeholder="Nhập tên dịch vụ" />
+                <InputComponent label="Bác sĩ thực hiện" name="doctor" placeholder="Chọn bác sĩ" />
+              </ProForm.Group>
+            </ProForm>
+            <TableComponent pagination={false} search={false} toolBarRender={false} columns={serviceColumns} dataSource={serviceData} rowKey="id" />
+          </div>
         </div>
       </div>
     </div>

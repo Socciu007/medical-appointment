@@ -21,6 +21,44 @@
             gap: 10px;
         }
       }
+      &-body {
+        padding: 0 15px;
+        &-title {
+          text-decoration: underline;
+          margin: 5px 0 10px 0;
+          text-align: start;
+        }
+        .ant-form {
+          .ant-space {
+            width: 100%;
+            .ant-space-item {
+              flex: 1;
+              .ant-form-item {
+                .ant-row {
+                  flex-direction: row;
+                  flex-wrap: nowrap;
+                  align-items: center;
+                  .ant-col:first-child {
+                    flex: 170px;
+                    padding: 0;
+                  }
+                }
+              }
+            }
+          }
+          .button-component {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 24px;
+          }
+        }
+        .ant-table-container {
+          margin: 0;
+        }
+      }
+      .border-top {
+        border-top: 1px solid #747373;
+      }
     }
     .container-header {
       width: 100%;

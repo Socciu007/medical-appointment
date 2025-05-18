@@ -2,7 +2,7 @@ import './style.scss'
 type ButtonComponentProps = {
   title: string
   icon?: string
-  onClick: () => void
+  onClick?: () => void
   color: string
   styleProps?: React.CSSProperties
 }
