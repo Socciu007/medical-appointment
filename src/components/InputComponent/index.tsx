@@ -11,7 +11,7 @@ type InputComponentProps = {
   inputProps?: Partial<FieldProps<InputRef> & InputProps>;
 };
 
-const InputComponent = ({ name, label, placeholder, width, inputProps }: InputComponentProps) => {
+const InputComponent = ({ name, label, placeholder, width, inputProps, ...props }: InputComponentProps) => {
   return (
     <ProFormText
       className="input-component"
@@ -20,6 +20,7 @@ const InputComponent = ({ name, label, placeholder, width, inputProps }: InputCo
       placeholder={placeholder}
       width={width}
       fieldProps={inputProps}
+      {...props}
     />
   )
 }

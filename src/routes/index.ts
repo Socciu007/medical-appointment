@@ -3,7 +3,8 @@ import { lazy } from 'react'
 // const HomePage = lazy(() => import('../pages/HomePage'))
 const PatientManager = lazy(() => import('../pages/PatientManager'))
 const PatientReception = lazy(() => import('../pages/PatientReception'))
-
+const AppointmentManager = lazy(() => import('../pages/AppointmentManager'))
+const AddAppointment = lazy(() => import('../pages/AddAppointment'))
 export const routes = [
   {
     path: '/',
@@ -16,5 +17,13 @@ export const routes = [
   {
     path: '/patient-reception',
     page: PatientReception
+  },
+  {
+    path: '/appointment',
+    page: AppointmentManager
+  },
+  {
+    path: '/add-appointment',
+    page: AddAppointment
   }
 ]

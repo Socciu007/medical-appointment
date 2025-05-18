@@ -281,20 +281,17 @@ const PatientReception = () => {
                       label="Họ tên:"
                       name="relativeName"
                       placeholder="Nhập họ tên"
-                      // width={184}
                     />
                     <InputComponent
                       label="Năm sinh:"
                       name="relativeBirthYear"
                       placeholder="Nhập năm sinh"
-                      // width={184}
                     />
                     <SelectComponent
                       label="Giới tính:"
                       name="relativeGender"
                       placeholder="Chọn giới tính"
                       options={genders}
-                      // width={184}
                     />
                   </div>
                   <div className="row">
@@ -303,7 +300,6 @@ const PatientReception = () => {
                       name="relation"
                       placeholder="Chọn quan hệ"
                       options={relationOptions}
-                      // width={184}
                     />
                     <InputComponent
                       label="Điện thoại:"
@@ -314,7 +310,6 @@ const PatientReception = () => {
                       label="Nơi làm việc:"
                       name="relativeWorkPlace"
                       placeholder="Nhập nơi làm việc"
-                      // width={184}
                     />
                   </div>
                   <div className="row">
@@ -322,7 +317,6 @@ const PatientReception = () => {
                       label="Địa chỉ:"
                       name="relativeAddress"
                       placeholder="Nhập địa chỉ"
-                      // width={184}
                     />
                   </div>
                 </div>
@@ -341,21 +335,18 @@ const PatientReception = () => {
                       label="Ngày đăng ký:"
                       name="registerDate"
                       placeholder="Chọn ngày đăng ký"
-                      // width={184}
                     />
                     <SelectComponent
                       label="Đối tượng:"
                       name="object"
                       placeholder="Chọn đối tượng"
                       options={[]}
-                      // width={184}
                     />
                     <SelectComponent
                       label="Hình thức:"
                       name="form"
                       placeholder="Chọn hình thức"
                       options={[]}
-                      // width={184}
                     />
                   </div>
                   <div className="row row-4">
@@ -364,7 +355,6 @@ const PatientReception = () => {
                       name="source"
                       placeholder="Chọn nguồn khách"
                       options={[]}
-                      // width={184}
                     />
                     <InputComponent
                       label="Giới thiệu:"
@@ -377,14 +367,12 @@ const PatientReception = () => {
                       label="Có BHTN:"
                       name="hasBHTN"
                       placeholder="Chọn có BHTN"
-                      // width={184}
                     />
                     <SelectComponent
                       label="Đơn vị BHTN:"
                       name="placeBHTN"
                       placeholder="Chọn đơn vị BHTN"
                       options={[]}
-                      // width={184}
                     />
                   </div>
                 </div>
@@ -436,7 +424,6 @@ const PatientReception = () => {
                       name="priorityObject"
                       placeholder="Chọn đối tượng ưu tiên"
                       options={[]}
-                      // width={184}
                     />
                     <div className="priority">
                       <ProFormCheckbox name="paymentAfter" />
@@ -455,6 +442,7 @@ const PatientReception = () => {
               </div>
               <TableComponent
                 columns={policyColumns}
+                search={false}
                 dataSource={[]}
                 rowKey="id"
                 toolBarRender={false}
@@ -468,6 +456,7 @@ const PatientReception = () => {
               </div>
               <TableComponent
                 columns={discountColumns}
+                search={false}
                 dataSource={[]}
                 rowKey="id"
                 toolBarRender={false}
@@ -481,6 +470,7 @@ const PatientReception = () => {
               </div>
               <TableComponent
                 columns={queuePatientColumns}
+                search={false}
                 dataSource={[]}
                 rowKey="id"
                 toolBarRender={false}
@@ -491,7 +481,7 @@ const PatientReception = () => {
         </ProForm>
       </div>
     </div>
-  );
+  )
 }
 
 export default PatientReception

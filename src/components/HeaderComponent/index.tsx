@@ -3,7 +3,7 @@ import saveIcon from '/assets/icons/icon-save.svg'
 import refreshIcon from '/assets/icons/icon-reload.svg'
 import arrowIcon from '/assets/icons/icon-arrow-right.svg'
 import homeIcon from '/assets/icons/icon-home.svg'
-import ButtonComponent from '../ButtonComponet'
+import ButtonComponent from '../ButtonComponent'
 import './style.scss'
 
 type HeaderComponentProps = {

@@ -1,126 +1,106 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import './style.scss'
-import saveIcon from '/assets/icons/icon-save.svg'
-import editIcon from '/assets/icons/icon-update.svg'
-import deleteIcon from '/assets/icons/icon-delete.svg'
 import HeaderComponent from '../../components/HeaderComponent'
 import TableComponent from '../../components/TableComponent'
 import ButtonComponent from '../../components/ButtonComponent'
+import saveIcon from '/assets/icons/icon-save.svg'
 import searchIcon from '/assets/icons/icon-search.svg'
-const patientColumns = [
+import { useNavigate } from 'react-router-dom'
+
+const appointmentColumns = [
   {
     title: 'STT',
     dataIndex: 'stt',
+    key: 'stt',
     search: false
   },
   {
-    title: 'PID',
-    dataIndex: 'pid'
-  },
-  {
-    title: 'Số BA mạn tính',
-    dataIndex: 'number',
-    search: false
-  },
-  {
-    title: 'Mã hồ sơ',
-    dataIndex: 'profileCode'
+    title: 'Nguồn',
+    dataIndex: 'source',
+    key: 'source'
   },
   {
     title: 'Họ tên',
-    dataIndex: 'name'
+    dataIndex: 'name',
+    key: 'name'
   },
   {
     title: 'Ngày sinh',
-    dataIndex: 'birthday'
+    dataIndex: 'dateOfBirth',
+    key: 'dateOfBirth',
+    search: false
   },
   {
     title: 'Giới tính',
-    dataIndex: 'gender'
+    dataIndex: 'gender',
+    key: 'gender',
+    search: false
   },
   {
     title: 'SĐT',
-    dataIndex: 'phone'
+    dataIndex: 'phone',
+    key: 'phone'
   },
   {
-    title: 'Ngày tạo',
-    dataIndex: 'createdAt',
+    title: 'Dịch vụ hẹn',
+    dataIndex: 'service',
+    key: 'service',
     search: false
   },
   {
-    title: 'Ngày tiếp nhận',
-    dataIndex: 'receiverDate'
+    title: 'Bác sĩ hẹn',
+    dataIndex: 'doctor',
+    key: 'doctor'
   },
   {
-    title: 'Địa chỉ',
-    dataIndex: 'address',
+    title: 'NV nhận lịch',
+    dataIndex: 'receptionist',
+    key: 'receptionist',
     search: false
   },
   {
-    title: 'Loại',
-    dataIndex: 'type'
-  },
-  {
-    title: 'Chuyên khoa',
-    dataIndex: 'specialty',
+    title: 'Thời gian đặt',
+    dataIndex: 'time',
+    key: 'time',
     search: false
   },
   {
-    title: 'Bác sĩ khám chính',
-    dataIndex: 'mainDoctor',
-    search: false
+    title: 'Thời gian hẹn',
+    dataIndex: 'appointmentTime',
+    key: 'appointmentTime'
   },
   {
-    title: 'Phòng khám chính',
-    dataIndex: 'mainRoom',
-    search: false
+    title: 'Trạng thái',
+    dataIndex: 'status',
+    key: 'status'
   },
   {
-    title: 'NV tiếp nhận',
-    dataIndex: 'receiver'
-  },
-  {
-    title: 'NV cập nhật',
-    dataIndex: 'updater',
-    search: false
-  },
-  {
-    title: 'Ngày cập nhật',
-    dataIndex: 'updatedAt',
-    search: false
-  },
-  {
-    title: 'Đã thu tiền',
-    dataIndex: 'paided',
+    title: 'Thời gian xác nhận',
+    dataIndex: 'confirmationTime',
+    key: 'confirmationTime',
     search: false
   },
   {
     title: 'Ghi chú',
     dataIndex: 'note',
+    key: 'note',
     search: false
   },
   {
     title: 'Tác vụ',
     dataIndex: 'action',
-    search: false,
-    render: () => [
-      <div className="action-container" key='edit'>
-        <img src={editIcon} alt="editable" />
-      </div>,
-      <div className="action-container" key='delete'>
-        <img src={deleteIcon} alt="deletable" />
-      </div>
-    ]
+    key: 'action',
+    search: false
   }
 ]
 
-const PatientManager = () => {
+const AppointmentManager = () => {
+  const navigate = useNavigate()
   return (
-    <div className="patient-manager-page">
+    <div className="appointment-manager-page">
       <div className="container">
         {/* Header */}
         <div className="container-header">
-          <HeaderComponent title="Danh sách tiếp nhận" isShowActions={false} />
+          <HeaderComponent title="Quản lý đặt lịch" isShowActions={false} />
         </div>
 
         {/* Content */}
@@ -130,20 +110,17 @@ const PatientManager = () => {
             <ButtonComponent
               color="#059669"
               title="Thêm"
-              onClick={() => {}}
               icon={saveIcon}
+              onClick={() => navigate('/add-appointment')}
             />
           </div>
           <TableComponent
             rowKey="id"
-            columns={patientColumns}
+            columns={appointmentColumns}
             rowSelection={{
+              type: 'checkbox',
               onChange: (selectedRowKeys, selectedRows) => {
-                console.log(
-                  `selectedRowKeys: ${selectedRowKeys}`,
-                  'selectedRows: ',
-                  selectedRows
-                )
+                console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
               }
             }}
             dataSource={[]}
@@ -154,8 +131,8 @@ const PatientManager = () => {
               resetText: 'Làm mới',
               className: 'search-form',
               collapsed: false,
-              labelWidth: 100,
               collapseRender: false,
+              labelWidth: 100,
               optionRender: () => {
                 return [
                   <ButtonComponent
@@ -175,4 +152,4 @@ const PatientManager = () => {
   )
 }
 
-export default PatientManager
+export default AppointmentManager

@@ -3,12 +3,18 @@
     margin: 0 24px;
     .ant-table-cell {
       font-size: var(--font-size-small);
+      // border: 1px solid #9F9E9E;
+    }
+    .ant-table-thead > tr {
+      .ant-table-cell {
+        background-color: rgba(185, 185, 185, 0.24);
+      }
     }
   }
 
   .search-form {
     border-radius: 0;
-    margin: 30px auto 12px;
+    margin: 0px auto 12px;
     width: 97%;
     form {
       margin: 0;
@@ -19,15 +25,16 @@
         gap: 20px;
         align-items: center;
         justify-content: center;
-        // .ant-col {
-        //   width: 100%;
-        //   .ant-form-item {
-        //     width: 100%;
-        //     > * {
-        //       width: 100%;
-        //     }
-        //   }
-        // }
+        flex-wrap: wrap;
+        .ant-col.ant-pro-query-filter-row-split {
+          flex: 0 0 30%;
+          box-sizing: border-box;
+          .ant-form-item {
+            .ant-col {
+              flex: 0.8;
+            }
+          }
+        }
         .ant-col:last-child {
           margin: 0;
           text-align: center;

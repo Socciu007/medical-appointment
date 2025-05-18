@@ -1,0 +1,29 @@
+.add-appointment-page {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    .container-content {
+      border: 1px solid #747373;
+      width: 98%;
+      margin: 30px auto 0px;
+      &-header {
+        height: 53px;
+        gap: 20px;
+        background-color: rgba(185, 185, 185, 0.35);
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0 20px;
+        &-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+      }
+    }
+    .container-header {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+  }
