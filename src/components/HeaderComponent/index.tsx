@@ -9,9 +9,12 @@ import './style.scss'
 type HeaderComponentProps = {
   title: string
   isShowActions?: boolean
+  handleSave?: () => void
+  handleRefresh?: () => void
+  handlePrint?: () => void
 }
 
-const HeaderComponent = ({ title, isShowActions }: HeaderComponentProps) => {
+const HeaderComponent = ({ title, isShowActions, handleSave, handleRefresh, handlePrint }: HeaderComponentProps) => {
   return (
     <div className="header-component">
       <div className="header-component-title">
@@ -31,19 +34,19 @@ const HeaderComponent = ({ title, isShowActions }: HeaderComponentProps) => {
           <ButtonComponent
             title="Lưu lại"
             icon={saveIcon}
-            onClick={() => {}}
+            onClick={handleSave}
             color="#059669"
           />
           <ButtonComponent
             title="In phiếu"
             icon={saveIcon}
-            onClick={() => {}}
+            onClick={handlePrint}
             color="#059669"
           />
           <ButtonComponent
             title="Làm mới"
             icon={refreshIcon}
-            onClick={() => {}}
+            onClick={handleRefresh}
             color="#666666"
           />
         </div>

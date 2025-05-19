@@ -18,6 +18,7 @@ import { nations } from '../../mocks/nation'
 import { genders } from '../../mocks/gender'
 import { identification } from '../../mocks/identification'
 import { jobs } from '../../mocks/jobs'
+import { useState } from 'react'
 
 const policyColumns = [
   {
@@ -117,17 +118,59 @@ const relationOptions = [
   }
 ]
 
+const initialValues = {
+  full_name: '',
+  birthday: new Date(),
+  gender: '',
+  phone: '',
+  addressHC: '',
+  address: '',
+  country: '',
+  passport: '',
+  personal_id: '',
+  pid_date: new Date(),
+  pid_place: '',
+  timeLimitCCCD: '',
+  ethnic: '',
+  religion: '',
+  occupation: '',
+  workPlace: '',
+  relativeName: '',
+  relativeBirthYear: '',
+  relativeGender: '',
+  relativePhone: '',
+  relativeWorkPlace: '',
+  relativeAddress: '',
+  registerDate: new Date(),
+  object: '',
+  form: '',
+  source: '',
+  introduce: '',
+  hasBHTN: false,
+  placeBHTN: '',
+  reason: '',
+  note: '',
+  service: '',
+  room: '',
+  priority: false,
+  priorityObject: '',
+  paymentAfter: false
+}
+
 const PatientReception = () => {
+  const [patient, setPatient] = useState(initialValues)
+  const handleSave = () => {
+    console.log(patient)
+  }
   return (
     <div className="patient-reception-page">
       <div className="container">
         {/* Header */}
         <div className="container-header">
-          <HeaderComponent title="Tiếp nhận" isShowActions={true} />
+          <HeaderComponent title="Tiếp nhận" isShowActions={true} handleSave={handleSave} />
         </div>
-
         {/* Content */}
-        <ProForm className="container-form" submitter={false}>
+        <ProForm initialValues={patient} onValuesChange={setPatient} className="container-form" submitter={false}>
           <ProForm.Group>
             {/* Infomation 1 */}
             <div className="form-1">
@@ -140,13 +183,13 @@ const PatientReception = () => {
                   <div className="row">
                     <InputComponent
                       label="Họ tên:"
-                      name="name"
+                      name="full_name"
                       placeholder="Nhập họ tên"
                     />
                     <SelectDatePicker
                       label="Ngày sinh:"
                       placeholder="Chọn ngày sinh"
-                      name="date"
+                      name="birthday"
                     />
                   </div>
                   <div className="row">
@@ -184,7 +227,7 @@ const PatientReception = () => {
                     />
                     <SelectComponent
                       label="Quốc tịch:"
-                      name="nationality"
+                      name="country"
                       placeholder="Chọn quốc tịch"
                       options={nations}
                     />
@@ -211,25 +254,25 @@ const PatientReception = () => {
                   <div className="row">
                     <SelectComponent
                       label="Loại giấy tờ:"
-                      name="type"
+                      name="passport"
                       placeholder="Chọn loại giấy tờ"
                       options={identification}
                     />
                     <InputComponent
                       label="Số CCCD:"
-                      name="numberCCCD"
+                      name="personal_id"
                       placeholder="Nhập số CCCD"
                     />
                     <SelectDatePicker
                       label="Ngày cấp:"
-                      name="dateCCCD"
+                      name="pid_date"
                       placeholder="Chọn ngày cấp"
                     />
                   </div>
                   <div className="row row-1">
                     <InputComponent
                       label="Nơi cấp:"
-                      name="placeCCCD"
+                      name="pid_place"
                       placeholder="Nhập nơi cấp"
                     />
                     <InputComponent
@@ -253,7 +296,7 @@ const PatientReception = () => {
                     />
                     <SelectComponent
                       label="Nghề nghiệp:"
-                      name="job"
+                      name="occupation"
                       placeholder="Chọn nghề nghiệp"
                       options={jobs}
                     />
