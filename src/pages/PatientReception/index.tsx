@@ -119,14 +119,15 @@ const relationOptions = [
 ]
 
 const initialValues = {
-  full_name: '',
-  birthday: new Date(),
-  gender: '',
-  phone: '',
-  addressHC: '',
-  address: '',
-  country: '',
-  passport: '',
+  full_name: '', //Patient
+  birthday: new Date(), //Patient
+  gender: '', //Patient
+  phone: '', //Patient
+  full_address: '', //Patient
+  address: '', //Patient
+  email: '', //Patient
+  country: '', //Patient
+  passport: '', //Patient
   personal_id: '',
   pid_date: new Date(),
   pid_place: '',
@@ -134,16 +135,16 @@ const initialValues = {
   ethnic: '',
   religion: '',
   occupation: '',
-  workPlace: '',
-  relativeName: '',
-  relativeBirthYear: '',
-  relativeGender: '',
-  relativePhone: '',
-  relativeWorkPlace: '',
-  relativeAddress: '',
-  registerDate: new Date(),
-  object: '',
-  form: '',
+  work_place: '',
+  contact_name: '', //PatientContact
+  relativeBirthYear: '', //PatientContact
+  relativeGender: '', //PatientContact
+  contact_phone: '', //PatientContact
+  relativeWorkPlace: '', //PatientContact
+  relativeAddress: '', //PatientContact
+  registerDate: new Date(), //Patient
+  object: '', //Patient
+  form: '', //Patient
   source: '',
   introduce: '',
   hasBHTN: false,
