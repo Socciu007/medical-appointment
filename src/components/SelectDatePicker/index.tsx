@@ -6,11 +6,12 @@ type SelectDatePickerProps = {
   label: string
   placeholder: string
   width?: number | 'sm' | 'md' | 'lg' | 'xl' | 'xs'
+  required?: boolean
 }
 
-const SelectDatePicker = ({ name, label, width, placeholder }: SelectDatePickerProps) => {
+const SelectDatePicker = ({ name, label, width, placeholder, required }: SelectDatePickerProps) => {
   return (
-    <ProFormDatePicker className="select-date-picker" placeholder={placeholder} width={width} name={name} label={label} />
+    <ProFormDatePicker className="select-date-picker" placeholder={placeholder} width={width} name={name} required={required} label={label} />
   )
 }
 

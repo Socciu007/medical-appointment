@@ -15,9 +15,10 @@ type SelectComponentProps = {
   rules?: Rule[]
   dependencies?: string[]
   width?: number | 'sm' | 'md' | 'lg' | 'xl' | 'xs'
+  required?: boolean
 }
 
-const SelectComponent = ({ name, label, options, placeholder, rules, dependencies, width }: SelectComponentProps) => {
+const SelectComponent = ({ name, label, options, placeholder, rules, dependencies, width, required }: SelectComponentProps) => {
   return (
     <ProFormSelect
       className="select-component"
@@ -28,6 +29,7 @@ const SelectComponent = ({ name, label, options, placeholder, rules, dependencie
       dependencies={dependencies}
       rules={rules}
       width={width}
+      required={required}
     />
   )
 }

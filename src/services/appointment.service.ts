@@ -1,55 +1,48 @@
 import axiosInstance from './axios'
 
-export interface AppointmentData {
-  employee: string;
-  phone: string;
-  time: string;
-  source: string;
-  referral: string;
-  mxh: string;
-  name: string;
-  age: number;
+export interface PatientData {
+  full_name: string;
+  date_of_birth: string;
   gender: string;
-  email: string;
-  type: string;
+  phone_number: string;
+  full_address: string;
   address: string;
-  addressHC: string;
-  timeAppointment: string;
-  status: string;
-  note: string;
-  services: ServiceData[];
-}
-
-export interface ServiceData {
-  serviceGroup: string;
-  serviceName: string;
-  doctor: string;
+  email: string;
+  national_id: string;
+  id_num: string;
+  id_issue_date: string;
+  id_issue_by: string;
+  id_expired_date: string;
+  ethnic_id: string;
+  religion_id: string;
+  career_id: string;
+  work_place: string;
 }
 
 const appointmentService = {
   // Create new appointment
-  createAppointment: (data: AppointmentData) => {
-    return axiosInstance.post('/appointments', data)
+  createPatient: (data: PatientData) => {
+    return axiosInstance.post('/patients', data)
   },
 
   // Get all appointments
-  getAppointments: (params?: unknown) => {
-    return axiosInstance.get('/appointments', { params })
+  getPatients: (params?: unknown) => {
+    return axiosInstance.get('/patients', { params })
   },
 
   // Get appointment by id
-  getAppointmentById: (id: string) => {
-    return axiosInstance.get(`/appointments/${id}`)
+  getPatientById: (id: string) => {
+    return axiosInstance.get(`/patients/${id}`)
   },
 
   // Update appointment
-  updateAppointment: (id: string, data: Partial<AppointmentData>) => {
-    return axiosInstance.put(`/appointments/${id}`, data)
+  updatePatient: (id: string, data: Partial<PatientData>) => {
+    return axiosInstance.put(`/patients/${id}`, data)
   },
 
   // Delete appointment
-  deleteAppointment: (id: string) => {
-    return axiosInstance.delete(`/appointments/${id}`)
+  deletePatient: (id: string) => {
+    return axiosInstance.delete(`/patients/${id}`)
   }
 }
 

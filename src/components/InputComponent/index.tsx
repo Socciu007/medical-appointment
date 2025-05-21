@@ -1,5 +1,6 @@
 import type { FieldProps } from '@ant-design/pro-form/es/typing'
 import type { InputRef, InputProps } from 'antd'
+import type { Rule } from 'antd/es/form'
 import './style.scss'
 import { ProFormText } from '@ant-design/pro-form'
 
@@ -9,9 +10,11 @@ type InputComponentProps = {
   placeholder: string;
   width?: number;
   inputProps?: Partial<FieldProps<InputRef> & InputProps>;
+  rules?: Rule[];
+  required?: boolean;
 };
 
-const InputComponent = ({ name, label, placeholder, width, inputProps, ...props }: InputComponentProps) => {
+const InputComponent = ({ name, label, placeholder, width, inputProps, rules, required, ...props }: InputComponentProps) => {
   return (
     <ProFormText
       className="input-component"
@@ -20,6 +23,8 @@ const InputComponent = ({ name, label, placeholder, width, inputProps, ...props 
       placeholder={placeholder}
       width={width}
       fieldProps={inputProps}
+      rules={rules}
+      required={required}
       {...props}
     />
   )
