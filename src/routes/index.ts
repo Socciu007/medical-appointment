@@ -5,6 +5,7 @@ const PatientManager = lazy(() => import('../pages/PatientManager'))
 const PatientReception = lazy(() => import('../pages/PatientReception'))
 const AppointmentManager = lazy(() => import('../pages/AppointmentManager'))
 const AddAppointment = lazy(() => import('../pages/AddAppointment'))
+const ExaminePatient = lazy(() => import('../pages/ExaminePatient'))
 export const routes = [
   {
     path: '/',
@@ -25,5 +26,9 @@ export const routes = [
   {
     path: '/add-appointment',
     page: AddAppointment
+  },
+  {
+    path: '/examine',
+    page: ExaminePatient
   }
 ]

@@ -1,0 +1,40 @@
+.examine-patient-page {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding-bottom: 10px;
+  .container-content {
+    &-tabs {
+      width: 97%;
+      margin: 30px auto 0px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      &-item {
+        padding: 7px 15px;
+        width: fit-content;
+        background-color: rgba(185, 185, 185, 0.35);
+        border-radius: 4px;
+        border: 1px solid rgba(185, 185, 185, 0.35);
+        cursor: pointer;
+      }
+    }
+    &-header {
+      width: 97%;
+      height: 60px;
+      margin: 0 auto;
+      gap: 20px;
+      border: 1px solid rgba(185, 185, 185, 0.35);
+      // background-color: rgba(185, 185, 185, 0.35);
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+  }
+  .container-header {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+
