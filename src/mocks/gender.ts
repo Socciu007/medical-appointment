@@ -1,14 +1,17 @@
 export const genders = [
   {
     label: 'Nam',
-    value: 'male'
+    value: 'male',
+    id: 0
   },
   {
     label: 'Nữ',
-    value: 'female'
+    value: 'female',
+    id: 1
   },
   {
     label: 'Khác',
-    value: 'other'
+    value: 'other',
+    id: 2
   }
 ]

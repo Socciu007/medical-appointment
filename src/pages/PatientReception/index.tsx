@@ -1,5 +1,9 @@
 import './style.scss'
-import { ProForm, ProFormCheckbox, type FormInstance } from '@ant-design/pro-form'
+import {
+  ProForm,
+  ProFormCheckbox,
+  type FormInstance
+} from '@ant-design/pro-form'
 import cardIcon from '/assets/icons/icon-card.svg'
 import redirectIcon from '/assets/icons/icon-redirect.svg'
 import contactIcon from '/assets/icons/icon-contact.svg'
@@ -20,6 +24,11 @@ import { identification } from '../../mocks/identification'
 import { jobs } from '../../mocks/jobs'
 import { useEffect, useRef, useState } from 'react'
 import utilsService from '../../services/utilsService'
+import patientRegisterService, {
+  type RegisterPatientData
+} from '../../services/patientRegisterService'
+import { generateCode, generatePDF, getRandomSiteCode } from '../../utils'
+import { toast } from 'react-toastify'
 
 const policyColumns = [
   {
@@ -77,114 +86,356 @@ const queuePatientColumns = [
 const religionOptions = [
   {
     label: 'Không',
-    value: 'none'
+    value: 'none',
+    id: 0
   },
   {
     label: 'Khác',
-    value: 'other'
+    value: 'other',
+    id: 1
   }
 ]
 
 const ethnicOptions = [
   {
     label: 'Kinh',
-    value: 'kinh'
+    value: 'kinh',
+    id: 0
   },
   {
     label: 'Khác',
-    value: 'other'
+    value: 'other',
+    id: 1
   }
 ]
 
 const relationOptions = [
   {
     label: 'Bố',
-    value: 'father'
+    value: 'father',
+    id: 0
   },
   {
     label: 'Mẹ',
-    value: 'mother'
+    value: 'mother',
+    id: 1
   },
   {
     label: 'Vợ chồng',
-    value: 'couple'
+    value: 'couple',
+    id: 2
   },
   {
     label: 'Bạn bè',
-    value: 'friend'
+    value: 'friend',
+    id: 3
   },
   {
     label: 'Khác',
-    value: 'other'
+    value: 'other',
+    id: 4
   }
 ]
 
+const resourceVisitOptions = [
+  {
+    label: 'Tự đến',
+    value: 'self',
+    id: 0
+  },
+  {
+    label: 'MXH',
+    value: 'social',
+    id: 1
+  },
+  {
+    label: 'KH tái khám',
+    value: 'revisit',
+    id: 2
+  },
+  {
+    label: 'Người giới thiệu',
+    value: 'referral',
+    id: 3
+  },
+  {
+    label: 'Khác',
+    value: 'other',
+    id: 4
+  }
+]
+
+const resourceUserOptions = [
+  {
+    label: 'Khách hàng',
+    value: 'customer',
+    id: 0
+  },
+  {
+    label: 'Bác sĩ',
+    value: 'doctor',
+    id: 1
+  },
+  {
+    label: 'CTV/NV',
+    value: 'staff',
+    id: 2
+  }
+]
+
+const registerTypeOptions = [
+  { label: 'BHYT', value: 'bhyt', id: 0 },
+  { label: 'Dịch vụ', value: 'service', id: 1 }
+]
+
+const requestTypeOptions = [
+  { label: 'Khám bệnh thông thường', value: 'normal', id: 0 },
+  { label: 'Thực hiện dịch vụ', value: 'service', id: 1 },
+  { label: 'Cấp cứu', value: 'emergency', id: 2 },
+  { label: 'Điều trị ngoại trú', value: 'outpatient', id: 3 },
+  { label: 'Nhập viện nội trú', value: 'inpatient', id: 4 },
+  { label: 'Khác', value: 'other', id: 5 }
+]
 const initialPatient = {
-  full_name: '', //Patient: string
-  date_of_birth: new Date(), //Patient
-  gender: '', //Patient: string
-  phone_number: '', //Patient
-  full_address: '', //Patient: string
-  address: '', //Patient
-  email: '', //Patient
-  national_id: '', //Patient: string
-  passport: '', //Patient
-  id_num: '', // Số CCCD
-  id_issue_date: new Date(), //Ngày cấp
-  id_issue_by: '', // Nơi cấp
-  id_expired_date: new Date(), //Thời hạn
-  ethnic_id: '', //Dân tộc : string
-  religion_id: '', //Tôn giáo : string
-  career_id: '', //Nghề nghiệp : string
-  work_place: '', //Nơi làm việc : string Patient
-  contact_name: '', //PatientContact
-  contact_birth_year: '', //PatientContact: năm sinh
-  contact_gender: '', //PatientContact: giới tính
-  relationship: '', //PatientContact: Quan hệ
-  contact_phone: '', //PatientContact
-  contact_work_place: '', //PatientContact
-  contact_address: '', //PatientContact
-  register_date: new Date(), //Register : ngày đăng ký
-  register_type: 'bhyt', //Register : đối tượng
-  request_type: '', //Register : hình thức
-  resource_visit: '', //Register : nguồn khách
-  resource_user: '', //Register : người giới thiệu
-  is_insuarance: false, //Register : có BHTN
-  ins_id: '', //Register : đơn vị BHTN
-  reason: '', //Register : lý do
-  register_note: '', //Register : ghi chú tiếp đón
-  user_service: '', //Register : dịch vụ
-  dept_service: '', //Register : phòng
-  prioritize: false, //Register : ưu tiên
-  priority_type: '', //Register : đối tượng ưu tiên
-  is_pay_before: false //Register : thanh toán sau
+  full_name: '',
+  date_of_birth: new Date(),
+  gender: '',
+  phone_number: '',
+  full_address: '',
+  address: '',
+  email: '',
+  national_id: '',
+  passport: '',
+  id_num: '',
+  id_issue_date: new Date(),
+  id_issue_by: '',
+  id_expired_date: new Date(),
+  ethnic_id: '',
+  religion_id: '',
+  career_id: '',
+  work_place: '',
+  contact_name: '',
+  contact_birth_year: '',
+  contact_gender: '',
+  relationship: '',
+  contact_phone: '',
+  work_place_address: '',
+  contact_address: '',
+  register_date: new Date(),
+  register_type: 'bhyt',
+  request_type: '',
+  resource_visit: '',
+  resource_user: '',
+  is_insuarance: false,
+  ins_id: '',
+  reason: '',
+  register_note: '',
+  user_service: '',
+  dept_service: '',
+  prioritize: false,
+  priority_type: '',
+  is_pay_before: false
 }
 
 const PatientReception = () => {
   const formRef = useRef<FormInstance>(null)
-  const [priorityTypes, setPriorityTypes] = useState<{ label: string, value: string }[]>([])
+  const [priorityTypes, setPriorityTypes] = useState<
+    { label: string; value: string; id: number }[]
+  >([])
 
   useEffect(() => {
     const fetchPriorityTypes = async () => {
       const response = await utilsService.getPriorityTypes()
-      setPriorityTypes(response?.data?.items?.map((item: { name: string, code: string }) => ({ label: item?.name, value: item?.code })))
+      setPriorityTypes(
+        response?.data?.items?.map(
+          (item: { name: string; code: string; id: number }) => ({
+            label: item?.name,
+            value: item?.code,
+            id: item?.id
+          })
+        )
+      )
     }
     fetchPriorityTypes()
   }, [])
 
+  // Handle save data patient
   const handleSave = async () => {
     const values = await formRef.current?.validateFields()
-    console.log('values', values)
+    const data: RegisterPatientData = {
+      patient: {
+        code: generateCode(getRandomSiteCode()),
+        full_name: values.full_name,
+        date_of_birth: values.date_of_birth.toISOString().split('T')[0],
+        gender:
+          genders?.find((item) => item?.value === values?.gender)?.id || 0,
+        phone_number: values.phone_number,
+        full_address: values.full_address,
+        address: values.address,
+        email: values.email,
+        national_id:
+          nations?.find((item) => item?.value === values?.national_id)?.id || 0,
+        id_num: values.id_num,
+        id_issue_date: values.id_issue_date.toISOString().split('T')[0],
+        id_issue_by: values.id_issue_by,
+        id_expired_date: values.id_expired_date.toISOString().split('T')[0],
+        ethnic_id:
+          ethnicOptions?.find((item) => item?.value === values?.ethnic_id)
+            ?.id || 0,
+        religion_id:
+          religionOptions?.find((item) => item?.value === values?.religion_id)
+            ?.id || 0,
+        career_id:
+          jobs?.find((item) => item?.value === values?.career_id)?.id || 0,
+        work_place: values.work_place
+      },
+      register: {
+        patient_id: 0,
+        register_date: values.register_date.toISOString().split('T')[0],
+        register_type:
+          registerTypeOptions?.find(
+            (item) => item?.value === values?.register_type
+          )?.id || 0,
+        request_type:
+          requestTypeOptions?.find(
+            (item) => item?.value === values?.request_type
+          )?.id || 0,
+        resource_visit:
+          resourceVisitOptions?.find(
+            (item) => item?.value === values?.resource_visit
+          )?.id || 0,
+        resource_user:
+          resourceUserOptions?.find(
+            (item) => item?.value === values?.resource_user
+          )?.id || 0,
+        is_insuarance: values.is_insuarance,
+        ins_id: parseInt(values.ins_id) || 0,
+        reason: values.reason,
+        register_note: values.register_note,
+        prioritize: values.prioritize,
+        priority_type:
+          priorityTypes?.find((item) => item?.value === values?.priority_type)
+            ?.id || 0
+      },
+      services: [
+        {
+          service_id: parseInt(values.service_id) || 0,
+          dept_service: parseInt(values.dept_service) || 0,
+          is_pay_before: values.is_pay_before,
+          reg_num: generateCode(getRandomSiteCode()),
+          patient_id: 0,
+          register_id: 0
+        }
+      ],
+      contact: {
+        contact_name: values.contact_name,
+        year_of_birth: parseInt(values.contact_birth_year),
+        gender:
+          genders?.find((item) => item?.value === values?.contact_gender)?.id ||
+          0,
+        relationship: values.relationship,
+        contact_phone: values.contact_phone,
+        work_place_address: values.work_place_address,
+        contact_address: values.contact_address
+      }
+    }
+    const response = await patientRegisterService.createRegisterPatient(data)
+    if (response?.status === 200) {
+      toast.success('Đăng ký dịch vụ thành công')
+    } else {
+      toast.error('Đăng ký dịch vụ thất bại')
+    }
+    return formRef?.current?.resetFields()
   }
+
+  // Handle print patient
+  const handlePrint = async () => {
+    const values = await formRef.current?.validateFields()
+    if (!values || !values.full_name || !values.date_of_birth || !values.gender || !values.phone_number || !values.full_address || !values.address || !values.email || !values.national_id || !values.id_num || !values.id_issue_date || !values.id_issue_by || !values.id_expired_date || !values.ethnic_id || !values.religion_id || !values.career_id || !values.work_place || !values.contact_name || !values.contact_birth_year || !values.contact_gender || !values.relationship || !values.contact_phone || !values.work_place_address || !values.contact_address || !values.register_date || !values.register_type || !values.request_type || !values.resource_visit || !values.resource_user || !values.is_insuarance || !values.ins_id || !values.reason || !values.register_note || !values.service_id || !values.dept_service || !values.is_pay_before) {
+      toast.warning('Vui lòng nhập đầy đủ thông tin')
+      return
+    }
+    const data = {
+      'Thông tin bệnh nhân.': {
+        'Họ tên': values.full_name,
+        'Code': generateCode(getRandomSiteCode()),
+        'Ngày sinh': values.date_of_birth.toISOString().split('T')[0],
+        'Giới tính': values.gender,
+        'Điện thoại': values.phone_number,
+        'Địa chỉ HC': values.full_address,
+        'Địa chỉ': values.address,
+        'Email': values.email,
+        'Quốc tịch': values?.national_id,
+        'Loại giấy tờ': values.passport,
+        'Số CCCD': values.id_num,
+        'Ngày cấp': values.id_issue_date.toISOString().split('T')[0],
+        'Nơi cấp': values.id_issue_by,
+        'Ngày hết hạn': values.id_expired_date.toISOString().split('T')[0],
+        'Dân tộc': values.ethnic_id,
+        'Tôn giáo': values.religion_id,
+        'Nghề nghiệp': values.career_id,
+        'Nơi làm việc': values.work_place
+      },
+      'Thông tin người thân.': {
+        'Họ tên': values.contact_name,
+        'Năm sinh': parseInt(values.contact_birth_year),
+        'Giới tính': values.contact_gender,
+        'Quan hệ': values.relationship,
+        'Điện thoại': values.contact_phone,
+        'Địa chỉ': values.contact_address,
+        'Nơi làm việc': values.work_place_address
+      },
+      'Thông tin đăng ký.': {
+        'Ngày đăng ký': values.register_date.toISOString().split('T')[0],
+        'Loại đăng ký': values.register_type,
+        'Loại yêu cầu': values.request_type,
+        'Nguồn khách': values.resource_visit,
+        'Người giới thiệu': values.resource_user,
+        'Có BHTN': values.is_insuarance,
+        'Số BHTN': parseInt(values.ins_id) || 0,
+        'Lý do': values.reason || 'Không có lý do',
+        'Ghi chú': values.register_note || 'Không có ghi chú',
+        'Ưu tiên': values.prioritize,
+        'Loại ưu tiên': values.priority_type
+      },
+      'Thông tin dịch vụ.': {
+        'Dịch vụ': values.service_id || 1,
+        'Phòng': values.dept_service || 'Phòng khám bệnh',
+        'Thanh toán trước': values.is_pay_before
+      }
+    }
+    const pdfBytes = await generatePDF(data)
+    const blob = new Blob([new Uint8Array(pdfBytes)], { type: 'application/pdf' })
+    const url = URL.createObjectURL(blob)
+    window.open(url, '_blank')
+    return formRef?.current?.resetFields()
+  }
+
+  // Handle refresh data
+  const handleRefresh = () => {
+    return formRef?.current?.resetFields()
+  }
+
   return (
     <div className="patient-reception-page">
       <div className="container">
         {/* Header */}
         <div className="container-header">
-          <HeaderComponent title="Tiếp nhận" isShowActions={true} handleSave={async() => await handleSave()} />
+          <HeaderComponent
+            title="Tiếp nhận"
+            isShowActions={true}
+            handleSave={async () => await handleSave()}
+            handlePrint={async () => await handlePrint()}
+            handleRefresh={() => handleRefresh()}
+          />
         </div>
         {/* Content */}
-        <ProForm initialValues={initialPatient} formRef={formRef} className="container-form" submitter={false}>
+        <ProForm
+          initialValues={initialPatient}
+          formRef={formRef}
+          className="container-form"
+          submitter={false}
+        >
           <ProForm.Group>
             {/* Infomation 1 */}
             <div className="form-1">
@@ -347,7 +598,6 @@ const PatientReception = () => {
                       label="Năm sinh:"
                       name="contact_birth_year"
                       placeholder="Nhập năm sinh"
-                      rules={[{ type: 'number', message: 'Năm sinh phải là số' }]}
                     />
                     <SelectComponent
                       label="Giới tính:"
@@ -370,7 +620,7 @@ const PatientReception = () => {
                     />
                     <InputComponent
                       label="Nơi làm việc:"
-                      name="contact_work_place"
+                      name="work_place_address"
                       placeholder="Nhập nơi làm việc"
                     />
                   </div>
@@ -402,20 +652,13 @@ const PatientReception = () => {
                       label="Đối tượng:"
                       name="register_type"
                       placeholder="Chọn đối tượng"
-                      options={[{ label: 'BHYT', value: 'bhyt' }, { label: 'Dịch vụ', value: 'service' }]}
+                      options={registerTypeOptions}
                     />
                     <SelectComponent
                       label="Hình thức:"
                       name="request_type"
                       placeholder="Chọn hình thức"
-                      options={[
-                        { label: 'Khám bệnh thông thường', value: 'normal' },
-                        { label: 'Thực hiện dịch vụ', value: 'service' },
-                        { label: 'Cấp cứu', value: 'emergency' },
-                        { label: 'Điều trị ngoại trú', value: 'outpatient' },
-                        { label: 'Nhập viện nội trú', value: 'inpatient' },
-                        { label: 'Khác', value: 'other' }
-                      ]}
+                      options={requestTypeOptions}
                     />
                   </div>
                   <div className="row row-4">
@@ -423,12 +666,13 @@ const PatientReception = () => {
                       label="Nguồn khách:"
                       name="resource_visit"
                       placeholder="Chọn nguồn khách"
-                      options={[]}
+                      options={resourceVisitOptions}
                     />
-                    <InputComponent
+                    <SelectComponent
                       label="Giới thiệu:"
                       name="resource_user"
                       placeholder="Nhập người giới thiệu"
+                      options={resourceUserOptions}
                     />
                   </div>
                   <div className="row row-4 row-checkbox">
@@ -472,14 +716,14 @@ const PatientReception = () => {
                   <div className="row">
                     <InputComponent
                       label="Dịch vụ:"
-                      name="service"
+                      name="service_id"
                       placeholder="Nhập dịch vụ"
                     />
                   </div>
                   <div className="row">
                     <InputComponent
                       label="Phòng:"
-                      name="room"
+                      name="dept_service"
                       placeholder="Nhập phòng"
                     />
                   </div>
@@ -495,7 +739,7 @@ const PatientReception = () => {
                       options={priorityTypes}
                     />
                     <div className="priority">
-                      <ProFormCheckbox name="paymentAfter" />
+                      <ProFormCheckbox name="is_pay_before" />
                       <p>Thanh toán sau</p>
                     </div>
                   </div>
