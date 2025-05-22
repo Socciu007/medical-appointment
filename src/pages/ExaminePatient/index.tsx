@@ -3,6 +3,7 @@ import HeaderComponent from '../../components/HeaderComponent'
 import ButtonComponent from '../../components/ButtonComponent'
 import TableComponent from '../../components/TableComponent'
 import searchIcon from '/assets/icons/icon-search.svg'
+import TabsComponent from '../../components/TabsComponent'
 
 const examineColumns = [
   {
@@ -75,14 +76,10 @@ const ExaminePatient = () => {
 
         {/* Content */}
         <div className="container-content">
-          <div className="container-content-tabs">
-            <div className="container-content-tabs-item">
-              <p>Danh sách khám bệnh ngoại trú</p>
-            </div>
-            <div className="container-content-tabs-item">
-              <p>Chi tiết thông tin ngoại trú</p>
-            </div>
-          </div>
+          <TabsComponent
+            list={['Danh sách khám bệnh ngoại trú', 'Chi tiết thông tin ngoại trú']}
+            activeIndex={0}
+          />
           <div className="container-content-header">
             <p>Tìm kiếm</p>
           </div>
@@ -100,7 +97,17 @@ const ExaminePatient = () => {
             }}
             dataSource={[]}
             pagination={false}
-            toolBarRender={false}
+            toolBarRender={() => {
+              return [
+                <ButtonComponent
+                  color="#10B981"
+                  title="Thêm mới"
+                  icon={searchIcon}
+                  styleProps={{ width: 100 }}
+                  onClick={() => {}}
+                />
+              ]
+            }}
             search={{
               searchText: 'Tìm kiếm',
               resetText: 'Làm mới',

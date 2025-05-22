@@ -29,7 +29,7 @@ export default defineConfig({
     target: 'esnext' // Target the latest ECMAScript standard
   },
   optimizeDeps: {
-    include: ['prism-react-renderer', 'pdf-lib'] // Pre-bundle the package
+    include: ['pdf-lib'] // Pre-bundle the package
   },
   server: {
     port: 5000,
