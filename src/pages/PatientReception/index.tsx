@@ -262,6 +262,28 @@ const PatientReception = () => {
   // Handle save data patient
   const handleSave = async () => {
     const values = await formRef.current?.validateFields()
+    if (
+      !values ||
+      !values.full_name ||
+      !values.date_of_birth ||
+      !values.gender ||
+      !values.phone_number ||
+      !values.full_address ||
+      !values.address ||
+      !values.email ||
+      !values.national_id ||
+      !values.id_num ||
+      !values.id_issue_date ||
+      !values.id_issue_by ||
+      !values.id_expired_date ||
+      !values.ethnic_id ||
+      !values.religion_id ||
+      !values.career_id ||
+      !values.work_place
+    ) {
+      toast.warning('Vui lòng nhập đầy đủ thông tin')
+      return
+    }
     const data: RegisterPatientData = {
       patient: {
         code: generateCode(getRandomSiteCode()),
@@ -345,13 +367,12 @@ const PatientReception = () => {
     } else {
       toast.error('Đăng ký dịch vụ thất bại')
     }
-    return formRef?.current?.resetFields()
   }
 
   // Handle print patient
   const handlePrint = async () => {
     const values = await formRef.current?.validateFields()
-    if (!values || !values.full_name || !values.date_of_birth || !values.gender || !values.phone_number || !values.full_address || !values.address || !values.email || !values.national_id || !values.id_num || !values.id_issue_date || !values.id_issue_by || !values.id_expired_date || !values.ethnic_id || !values.religion_id || !values.career_id || !values.work_place || !values.contact_name || !values.contact_birth_year || !values.contact_gender || !values.relationship || !values.contact_phone || !values.work_place_address || !values.contact_address || !values.register_date || !values.register_type || !values.request_type || !values.resource_visit || !values.resource_user || !values.is_insuarance || !values.ins_id || !values.reason || !values.register_note || !values.service_id || !values.dept_service || !values.is_pay_before) {
+    if (!values || !values.full_name || !values.date_of_birth || !values.gender || !values.phone_number || !values.full_address || !values.address || !values.email || !values.national_id || !values.id_num || !values.id_issue_date || !values.id_issue_by || !values.id_expired_date || !values.ethnic_id || !values.religion_id || !values.career_id || !values.work_place) {
       toast.warning('Vui lòng nhập đầy đủ thông tin')
       return
     }
@@ -408,7 +429,6 @@ const PatientReception = () => {
     const blob = new Blob([new Uint8Array(pdfBytes)], { type: 'application/pdf' })
     const url = URL.createObjectURL(blob)
     window.open(url, '_blank')
-    return formRef?.current?.resetFields()
   }
 
   // Handle refresh data
