@@ -1,22 +1,26 @@
-
-import { useState } from 'react'
+/* eslint-disable no-unused-vars */
 import './style.scss'
 
-const TabsComponent = ({ list, activeIndex }: { list: string[], activeIndex: number }) => {
-  const [active, setActive] = useState(activeIndex)
+interface TabsComponentProps {
+  list: string[]
+  activeIndex: number
+  handleActive: (index: number) => void
+}
+
+const TabsComponent = ({ list, activeIndex, handleActive }: TabsComponentProps) => {
   return (
     <div className="tabs-component">
       {list.map((item, index) => (
         <div
-          className={`tabs-component-item ${active === index ? 'active' : ''}`}
+          className={`tabs-component-item ${activeIndex === index ? 'active' : ''}`}
           key={index}
-          onClick={() => setActive(index)}
+          onClick={() => handleActive(index)}
         >
           <p>{item}</p>
         </div>
       ))}
     </div>
-  )
+  );
 }
 
 export default TabsComponent

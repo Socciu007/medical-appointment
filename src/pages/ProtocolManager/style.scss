@@ -1,0 +1,43 @@
+.protocol-manager-page {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding-bottom: 10px;
+  .container-content {
+    &-header {
+      width: 97%;
+      height: 60px;
+      margin: 30px auto 0px;
+      gap: 20px;
+      border: 1px solid rgba(185, 185, 185, 0.35);
+      background-color: rgba(185, 185, 185, 0.35);
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+    .ant-pro-table {
+      .ant-row-start.ant-pro-query-filter-row {
+        justify-content: flex-start;
+        padding: 0 !important;
+        .ant-pro-query-filter-row-split {
+          max-width: 35% !important;
+          .ant-form-item-row {
+            justify-content: flex-start;
+            .ant-form-item-control {
+              flex: 1 !important;
+              .ant-select-selection-placeholder, 
+              .ant-select-selection-search {
+                text-align: start;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .container-header {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}

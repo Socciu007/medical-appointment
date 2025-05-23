@@ -1,5 +1,7 @@
 import { ProFormSelect } from '@ant-design/pro-form'
 import type { Rule } from 'antd/es/form'
+import type { SelectProps } from 'antd/es/select'
+import type { ReactNode } from 'react'
 import './style.scss'
 
 type Option = {
@@ -16,9 +18,10 @@ type SelectComponentProps = {
   dependencies?: string[]
   width?: number | 'sm' | 'md' | 'lg' | 'xl' | 'xs'
   required?: boolean
+  inputProps?: Partial< SelectProps<unknown, Option> & { searchOnFocus?: boolean | undefined; resetAfterSelect?: boolean | undefined; fetchDataOnSearch?: boolean | undefined; optionItemRender?: ((item: unknown) => ReactNode) | undefined; }>
 }
 
-const SelectComponent = ({ name, label, options, placeholder, rules, dependencies, width, required }: SelectComponentProps) => {
+const SelectComponent = ({ name, label, options, placeholder, rules, dependencies, width, required, inputProps }: SelectComponentProps) => {
   return (
     <ProFormSelect
       className="select-component"
@@ -30,6 +33,7 @@ const SelectComponent = ({ name, label, options, placeholder, rules, dependencie
       rules={rules}
       width={width}
       required={required}
+      fieldProps={inputProps}
     />
   )
 }

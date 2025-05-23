@@ -9,12 +9,17 @@ import './style.scss'
 type HeaderComponentProps = {
   title: string
   isShowActions?: boolean
+  isBtnSave?: boolean
+  isBtnPrint?: boolean
+  isBtnRefresh?: boolean
+  isBtnAction?: boolean
   handleSave?: () => void
   handleRefresh?: () => void
   handlePrint?: () => void
+  handleAction?: () => void
 }
 
-const HeaderComponent = ({ title, isShowActions, handleSave, handleRefresh, handlePrint }: HeaderComponentProps) => {
+const HeaderComponent = ({ title, isShowActions, isBtnSave = true, isBtnPrint = true, isBtnRefresh = true, isBtnAction = true, handleSave, handleRefresh, handlePrint, handleAction }: HeaderComponentProps) => {
   return (
     <div className="header-component">
       <div className="header-component-title">
@@ -25,30 +30,38 @@ const HeaderComponent = ({ title, isShowActions, handleSave, handleRefresh, hand
       </div>
       {isShowActions && (
         <div className="header-component-actions">
-          <ButtonComponent
-            title="Tác vụ"
-            icon={dropDownIcon}
-            onClick={() => {}}
-            color="#6885E5"
-          />
-          <ButtonComponent
-            title="Lưu lại"
-            icon={saveIcon}
-            onClick={handleSave}
-            color="#059669"
-          />
-          <ButtonComponent
-            title="In phiếu"
-            icon={saveIcon}
-            onClick={handlePrint}
-            color="#059669"
-          />
-          <ButtonComponent
-            title="Làm mới"
-            icon={refreshIcon}
-            onClick={handleRefresh}
-            color="#666666"
-          />
+          {isBtnAction && (
+            <ButtonComponent
+              title="Tác vụ"
+              icon={dropDownIcon}
+              onClick={handleAction}
+              color="#6885E5"
+            />
+          )}
+          {isBtnSave && (
+            <ButtonComponent
+              title="Lưu lại"
+              icon={saveIcon}
+              onClick={handleSave}
+              color="#059669"
+            />
+          )}
+          {isBtnPrint && (
+            <ButtonComponent
+              title="In phiếu"
+              icon={saveIcon}
+              onClick={handlePrint}
+              color="#059669"
+            />
+          )}
+          {isBtnRefresh && (
+            <ButtonComponent
+              title="Làm mới"
+              icon={refreshIcon}
+              onClick={handleRefresh}
+              color="#666666"
+            />
+          )}
         </div>
       )}
     </div>

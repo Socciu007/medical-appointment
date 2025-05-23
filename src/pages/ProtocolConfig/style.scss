@@ -1,0 +1,78 @@
+.protocol-config-page {
+  .container-content {
+    form {
+      margin-top: 20px;
+    }
+    .ant-pro-form {
+      border-bottom: 1px solid #000;
+      .ant-space {
+        width: 100%;
+        justify-content: space-between;
+        padding: 0 18px;
+        .ant-space-item {
+          width: 47%;
+          .ant-form-item {
+            .ant-row {
+              .ant-form-item-label {
+                text-align: start;
+              }
+            }
+          }
+        }
+      }
+    }
+    .form-search {
+      .ant-pro-form-group:last-child {
+        .ant-space {
+          justify-content: flex-start;
+          .ant-space-item {
+            flex: 1;
+          }
+        }
+      }
+      .ant-form-item-control {
+        text-align: start;
+      }
+    }
+    .search-form {
+      width: 100% !important;
+      .ant-row-start {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        .ant-space-align-center {
+          justify-content: center;
+        }
+      }
+    }
+    .ant-pro-table {
+      .ant-row-start.ant-pro-query-filter-row {
+        justify-content: flex-start;
+        .ant-pro-query-filter-row-split {
+          max-width: 30% !important;
+          padding: 0 !important;
+          .ant-form-item {
+            &-row {
+              justify-content: flex-start;
+              .ant-form-item-label {
+                text-align: start;
+                flex: 0 0 120px !important;
+              }
+              .ant-form-item-control {
+                text-align: start;
+                flex: 1 !important;
+                .ant-form-item-control-input {
+                  .ant-input-number {
+                    width: 30% !important;
+                    border-radius: 0;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+    }
+  }
+}
+
