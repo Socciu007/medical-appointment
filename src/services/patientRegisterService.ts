@@ -67,9 +67,14 @@ const patientRegisterService = {
     return axiosInstance.post('/registers/full-register', data)
   },
 
-  // Get all appointments
-  getPatients: (params?: unknown) => {
-    return axiosInstance.get('/patients', { params })
+  // Get all register services
+  getRegisterServices: (params?: unknown) => {
+    return axiosInstance.get('/register-services', { params })
+  },
+
+  // Get all register services by filter
+  getFilterRegisterServices: (params?: unknown) => {
+    return axiosInstance.get('/register-services/filters', { params })
   },
 
   // Get appointment by id

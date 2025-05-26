@@ -26,6 +26,13 @@ const TableComponent = ({ columns, dataSource, rowKey, search, toolBarRender, pa
       pagination={pagination}
       columns={columns}
       dataSource={dataSource}
+      options={{
+        search: false,
+        density: false,
+        fullScreen: false,
+        setting: false,
+        reload: false
+      }}
     />
   )
 }

@@ -8,6 +8,7 @@ const AddAppointment = lazy(() => import('../pages/AddAppointment'))
 const ExaminePatient = lazy(() => import('../pages/ExaminePatient'))
 const ProtocolConfig = lazy(() => import('../pages/ProtocolConfig'))
 const ProtocolManager = lazy(() => import('../pages/ProtocolManager'))
+const FeeManager = lazy(() => import('../pages/FeeManager'))
 export const routes = [
   {
     path: '/',
@@ -38,7 +39,11 @@ export const routes = [
     page: ProtocolConfig
   },
   {
-    path: '/protocol/list',
+    path: '/protocols',
     page: ProtocolManager
+  },
+  {
+    path: '/fee',
+    page: FeeManager
   }
 ]
