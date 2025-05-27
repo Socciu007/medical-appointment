@@ -5,6 +5,7 @@ import refreshIcon from '/assets/icons/icon-reload.svg'
 import arrowIcon from '/assets/icons/icon-arrow-right.svg'
 import homeIcon from '/assets/icons/icon-home.svg'
 import openMenuIcon from '/assets/icons/icon-menu-open.svg'
+import addIcon from '/assets/icons/icon-plus.svg'
 import ButtonComponent from '../ButtonComponent'
 import MenuComponent from '../MenuComponent'
 import { useState } from 'react'
@@ -15,10 +16,12 @@ type HeaderComponentProps = {
   isBtnPrint?: boolean;
   isBtnRefresh?: boolean;
   isBtnAction?: boolean;
+  isBtnAdd?: boolean;
   handleSave?: () => void;
   handleRefresh?: () => void;
   handlePrint?: () => void;
   handleAction?: () => void;
+  handleAdd?: () => void;
 };
 
 const HeaderComponent = ({
@@ -28,10 +31,12 @@ const HeaderComponent = ({
   isBtnPrint = true,
   isBtnRefresh = true,
   isBtnAction = true,
+  isBtnAdd = false,
   handleSave,
   handleRefresh,
   handlePrint,
-  handleAction
+  handleAction,
+  handleAdd
 }: HeaderComponentProps) => {
   const [isShowMenu, setIsShowMenu] = useState(false)
   return (
@@ -106,6 +111,16 @@ const HeaderComponent = ({
                 color="#666666"
               />
             )}
+            {
+              isBtnAdd && (
+                <ButtonComponent
+                  title="Thêm"
+                  icon={addIcon}
+                  onClick={handleAdd}
+                  color="#059669"
+                />
+              )
+            }
           </div>
         )}
       </div>

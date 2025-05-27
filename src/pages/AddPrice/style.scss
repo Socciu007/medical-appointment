@@ -1,0 +1,45 @@
+.add-price-page {
+  .container-content {
+    .ant-pro-form {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding: 0 18px;
+      .ant-pro-form-group {
+        flex: 1;
+        .ant-space {
+          display: block;
+          padding: 0 !important;
+          .ant-space-item {
+            width: 100%;
+            .ant-form-item {
+              margin-bottom: 20px !important;
+            .ant-row {
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+      .ant-space {
+        width: 100%;
+        justify-content: space-between;
+        padding: 0 18px;
+        .ant-space-item {
+          width: 47%;
+          .ant-form-item {
+            .ant-row {
+              .ant-form-item-label {
+                text-align: start;
+              }
+            }
+          }
+        }
+      }
+      div:last-child {
+        justify-content: center;
+        gap: 20px !important;
+      }
+    }
+  }
+}
+

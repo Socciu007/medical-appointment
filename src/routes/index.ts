@@ -9,6 +9,8 @@ const ExaminePatient = lazy(() => import('../pages/ExaminePatient'))
 const ProtocolConfig = lazy(() => import('../pages/ProtocolConfig'))
 const ProtocolManager = lazy(() => import('../pages/ProtocolManager'))
 const FeeManager = lazy(() => import('../pages/FeeManager'))
+const PriceManager = lazy(() => import('../pages/PriceManager'))
+const AddPrice = lazy(() => import('../pages/AddPrice'))
 export const routes = [
   {
     path: '/',
@@ -45,5 +47,13 @@ export const routes = [
   {
     path: '/fee',
     page: FeeManager
+  },
+  {
+    path: '/price',
+    page: PriceManager
+  },
+  {
+    path: '/add-price',
+    page: AddPrice
   }
 ]

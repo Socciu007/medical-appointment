@@ -72,7 +72,7 @@ const AddAppointment = () => {
               <p>Thêm thông tin đặt hẹn</p>
             </div>
             <div className="container-content-header-actions">
-              <ButtonComponent title="Thoát" color="#B9B9B9" onClick={() => navigate('/appointment-manager')} />
+              <ButtonComponent title="Thoát" color="#B9B9B9" onClick={() => navigate('/appointment')} />
               <ButtonComponent title="Lưu" color="#10B981" onClick={() => {}} />
             </div>
           </div>

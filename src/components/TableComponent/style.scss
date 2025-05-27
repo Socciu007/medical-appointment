@@ -55,8 +55,11 @@
           flex: 0 0 30%;
           box-sizing: border-box;
           .ant-form-item {
-            .ant-col {
-              flex: 0.8;
+            // .ant-col {
+            //   flex: 0.8;
+            // }
+            .ant-form-item-label {
+              flex: 1;
             }
           }
         }

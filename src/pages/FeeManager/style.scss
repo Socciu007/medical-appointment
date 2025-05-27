@@ -16,6 +16,98 @@
       justify-content: space-between;
       padding: 0 20px;
     }
+    &-info {
+      width: 97%;
+      margin: 30px auto 0px;
+      gap: 20px;
+      display: flex;
+      align-items: center;
+      &-form {
+        flex: 1;
+        &-form {
+          .ant-pro-form-group {
+            &-container {
+              width: 100%;
+              .ant-space-item {
+                flex: 1;
+                .ant-form-item {
+                  margin-bottom: 12px;
+                }
+              }
+            }
+          }
+          .ant-pro-form-group:nth-child(4),
+          .ant-pro-form-group:last-child {
+            .ant-pro-form-group-container {
+              .ant-space-item {
+                flex: 0.325 !important;
+              }
+            }
+          }
+          .ant-pro-form-group:last-child {
+            .ant-space-item {
+              .ant-form-item {
+                margin-bottom: 0 !important;
+              }
+            }
+          }
+        }
+      }
+      &-avatar {
+        img {
+          width: 126px;
+          height: 123px;
+          object-fit: cover;
+          border-radius: 5px;
+        }
+      }
+    }
+    &-main {
+      margin: 30px auto 0px;
+      &-form {
+        border-bottom: 1px solid #9f9e9e;
+        border-top: 1px solid #9f9e9e;
+        display: flex;
+        width: 97%;
+        margin: 0 auto 20px;
+        align-items: center;
+        gap: 20px;
+        &-payment {
+          flex: 1;
+          padding: 20px 0;
+          .ant-pro-form-group {
+            .ant-space {
+              gap: 12px !important;
+            }
+            &-container {
+              width: 100%;
+              .ant-space-item {
+                flex: 1;
+                .ant-form-item {
+                  margin-bottom: 12px;
+                }
+                .check-package, .check-guarantee {
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                  .ant-form-item {
+                    margin-bottom: 0 !important;
+                    margin-left: 6rem;
+                  }
+                }
+              }
+            }
+          }
+          .ant-pro-form-group:last-child {
+            .ant-pro-form-group-container {
+              .ant-space-item {
+                flex: 0.243 !important;
+              }
+            }
+          }
+        }
+      }
+    }
   }
   .container-header {
     width: 100%;
@@ -23,5 +115,19 @@
   }
   .ant-table-container {
     margin: 0 !important;
+  }
+  .search-form {
+    .ant-row-start {
+      .ant-pro-query-filter-row-split {
+        padding: 0 !important;
+      }
+      .ant-col-8:last-child {
+        padding-left: 0 !important;
+        flex: 0 0 30% !important;
+        .ant-form-item-control {
+          text-align: end;
+        }
+      }
+    }
   }
 }

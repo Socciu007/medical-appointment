@@ -6,6 +6,7 @@ import iconHourGlass from '/assets/icons/icon-hourglass.svg'
 import iconProtocol from '/assets/icons/icon-protocol.svg'
 import iconListProtocol from '/assets/icons/icon-list-protocol.svg'
 import iconMoniter from '/assets/icons/icon-moniter.svg'
+import iconCash from '/assets/icons/icon-cash.svg'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
@@ -35,6 +36,8 @@ const MenuComponent = ({ isShowMenu, setIsShowMenu }: MenuComponentProps) => {
       navigate('/protocols')
     } else if (type === 'fee') {
       navigate('/fee')
+    } else if (type === 'price') {
+      navigate('/price')
     }
     setSelectedItem(type)
     localStorage.setItem('key-menu', type)
@@ -45,53 +48,76 @@ const MenuComponent = ({ isShowMenu, setIsShowMenu }: MenuComponentProps) => {
       {isShowMenu && (
         <div className="menu-component">
           <div
-            className={`menu-component-item ${selectedItem === '' ? 'selected' : ''}`}
+            className={`menu-component-item ${
+              selectedItem === '' ? 'selected' : ''
+            }`}
             onClick={() => handleClickMenu('')}
           >
             <img src={iconForm} alt="icon-form" />
             <p>Tiếp nhận</p>
           </div>
           <div
-            className={`menu-component-item ${selectedItem === 'patient' ? 'selected' : ''}`}
+            className={`menu-component-item ${
+              selectedItem === 'patient' ? 'selected' : ''
+            }`}
             onClick={() => handleClickMenu('patient')}
           >
             <img src={iconMoniter} alt="icon-moniter" />
             <p>Danh sách tiếp nhận</p>
           </div>
           <div
-            className={`menu-component-item ${selectedItem === 'appointment' ? 'selected' : ''}`}
+            className={`menu-component-item ${
+              selectedItem === 'appointment' ? 'selected' : ''
+            }`}
             onClick={() => handleClickMenu('appointment')}
           >
             <img src={iconClock} alt="icon-hourglass" />
             <p>Danh sách đặt hẹn</p>
           </div>
           <div
-            className={`menu-component-item ${selectedItem === 'examine' ? 'selected' : ''}`}
+            className={`menu-component-item ${
+              selectedItem === 'examine' ? 'selected' : ''
+            }`}
             onClick={() => handleClickMenu('examine')}
           >
             <img src={iconHourGlass} alt="icon-hourglass" />
             <p>Danh sách khám bệnh</p>
           </div>
           <div
-            className={`menu-component-item ${selectedItem === 'protocol' ? 'selected' : ''}`}
+            className={`menu-component-item ${
+              selectedItem === 'protocol' ? 'selected' : ''
+            }`}
             onClick={() => handleClickMenu('protocol')}
           >
             <img src={iconProtocol} alt="icon-protocol" />
             <p>Cấu hình protocol</p>
           </div>
           <div
-            className={`menu-component-item ${selectedItem === 'protocols' ? 'selected' : ''}`}
+            className={`menu-component-item ${
+              selectedItem === 'protocols' ? 'selected' : ''
+            }`}
             onClick={() => handleClickMenu('protocols')}
           >
             <img src={iconListProtocol} alt="icon-list-protocol" />
             <p>Danh sách protocol</p>
           </div>
           <div
-            className={`menu-component-item ${selectedItem === 'fee' ? 'selected' : ''}`}
+            className={`menu-component-item ${
+              selectedItem === 'fee' ? 'selected' : ''
+            }`}
             onClick={() => handleClickMenu('fee')}
           >
             <img src={iconCredit} alt="icon-credit" />
             <p>Danh sách chờ thu phí</p>
+          </div>
+          <div
+            className={`menu-component-item ${
+              selectedItem === 'price' ? 'selected' : ''
+            }`}
+            onClick={() => handleClickMenu('price')}
+          >
+            <img src={iconCash} alt="icon-cost" />
+            <p>Quản lý bảng giá</p>
           </div>
         </div>
       )}
