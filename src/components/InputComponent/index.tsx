@@ -7,14 +7,15 @@ import { ProFormText } from '@ant-design/pro-form'
 type InputComponentProps = {
   name: string;
   label: string;
-  placeholder: string;
+  placeholder?: string;
   width?: number;
   inputProps?: Partial<FieldProps<InputRef> & InputProps>;
   rules?: Rule[];
   required?: boolean;
+  disabled?: boolean;
 };
 
-const InputComponent = ({ name, label, placeholder, width, inputProps, rules, required, ...props }: InputComponentProps) => {
+const InputComponent = ({ name, label, placeholder, width, inputProps, rules, required, disabled, ...props }: InputComponentProps) => {
   return (
     <ProFormText
       className="input-component"
@@ -25,6 +26,7 @@ const InputComponent = ({ name, label, placeholder, width, inputProps, rules, re
       fieldProps={inputProps}
       rules={rules}
       required={required}
+      disabled={disabled}
       {...props}
     />
   )

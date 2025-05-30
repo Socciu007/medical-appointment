@@ -77,19 +77,19 @@ const patientRegisterService = {
     return axiosInstance.get('/register-services/filters', { params })
   },
 
-  // Get appointment by id
+  // Get patient information by id
   getPatientById: (id: string) => {
     return axiosInstance.get(`/patients/${id}`)
   },
 
-  // Update appointment
+  // Update patient information
   updatePatient: (id: string, data: Partial<PatientData>) => {
     return axiosInstance.put(`/patients/${id}`, data)
   },
 
-  // Delete appointment
-  deletePatient: (id: string) => {
-    return axiosInstance.delete(`/patients/${id}`)
+  // Get patient contact information by id
+  getPatientContactById: (id: string) => {
+    return axiosInstance.get(`/patients/${id}/contacts`)
   }
 }
 

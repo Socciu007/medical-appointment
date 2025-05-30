@@ -25,7 +25,7 @@ const MenuComponent = ({ isShowMenu, setIsShowMenu }: MenuComponentProps) => {
     if (type === '') {
       navigate('/')
     } else if (type === 'patient') {
-      navigate('/patient')
+      navigate('/patients')
     } else if (type === 'appointment') {
       navigate('/appointment')
     } else if (type === 'examine') {

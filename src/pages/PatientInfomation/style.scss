@@ -1,0 +1,212 @@
+.patient-infomation-page {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding-bottom: 10px;
+  .tabs-component {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .container-header {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  .container-form {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    .ant-pro-form-group {
+      flex: 6 !important;
+      &-container {
+        width: 100%;
+        display: inline;
+        .form-1 {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          .form-1-title {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 5px;
+            padding-left: 10px;
+            max-width: 35%;
+            img {
+              width: 19px;
+              height: 19px;
+            }
+            h2 {
+              font-size: var(--font-size-base);
+              font-weight: 500;
+              line-height: 20px;
+            }
+          }
+          .form-1-content {
+            gap: 10px;
+            padding-left: 10px;
+            display: flex;
+            &-item {
+              flex: 8;
+              .row {
+                display: flex;
+                gap: 25px;
+                margin-bottom: 10px;
+                .ant-form-item {
+                  width: 100%;
+                  margin-bottom: 0;
+                  &-row {
+                    flex-wrap: nowrap;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 10px;
+                    .ant-col {
+                      width: 110px;
+                      padding: 0;
+                    }
+                  }
+                  .ant-form-item-control-input-content {
+                    text-align: end;
+                  }
+                }
+              }
+              .row-2 {
+                .ant-col {
+                  width: 110px !important;
+                }
+              }
+              .row-1 {
+                .ant-form-item:nth-child(2) {
+                  width: 48% !important;
+                }
+              }
+              .row-4 {
+                .ant-form-item {
+                  flex: 1;
+                }
+                .ant-form-item:nth-child(2) {
+                  flex: 2.1;
+                }
+              }
+              .row-checkbox {
+                .ant-form-item-control-input-content {
+                  text-align: start !important;
+                }
+              }
+              .add-info {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0px;
+                .priority {
+                  display: flex;
+                  align-items: center;
+                  justify-content: end;
+                  gap: 5px;
+                  .ant-form-item {
+                    margin-bottom: 0;
+                    text-align: end;
+                  }
+                  p {
+                    width: 100px;
+                    text-align: start;
+                  }
+                }
+                .ant-form-item {
+                  margin-bottom: 0;
+                  .ant-row {
+                    margin-bottom: 0;
+                    flex-direction: row;
+                    flex-wrap: nowrap;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 10px;
+                    .ant-col {
+                      width: 140px;
+                      padding: 0;
+                    }
+                  }
+                }
+              }
+              .avatar-qr-code {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                flex-direction: column;
+                .qr-code {
+                  width: 100%;
+                  height: 35px;
+                  border: 1px solid #c0c0c0;
+                  text-align: end;
+                  img {
+                    padding: 7px;
+                  }
+                }
+              }
+            }
+            &-item:nth-child(2) {
+              flex: 2;
+            }
+          }
+          .ant-checkbox {
+            input {
+              width: 35px;
+              height: 35px;
+            }
+            .ant-checkbox-inner {
+              width: 35px;
+              border-radius: 0;
+              height: 35px;
+            }
+            .ant-checkbox-inner::after {
+              width: 15px;
+              height: 20px;
+              top: 47%;
+              border: 3.5px solid #fff;
+              border-top: none;
+              border-left: none;
+            }
+          }
+        }
+        .form-2 {
+          margin-bottom: 10px;
+          .form-2-title {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 5px;
+            padding-left: 10px;
+            max-width: 65%;
+            margin-bottom: 10px;
+            img {
+              width: 19px;
+              height: 19px;
+            }
+            h2 {
+              font-size: var(--font-size-base);
+              font-weight: 500;
+              line-height: 20px;
+            }
+          }
+        }
+      }
+    }
+    .ant-pro-form-group:nth-child(3) {
+      flex: 3.3 !important;
+    }
+  }
+  .ant-pro-table {
+    .ant-pro-card {
+      &-body {
+        padding: 0 !important;
+        .ant-table-wrapper {
+          .ant-table-container {
+            margin: 0 20px !important;
+          }
+        }
+      }
+    }
+  }
+}
