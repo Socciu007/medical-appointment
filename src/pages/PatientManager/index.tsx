@@ -9,22 +9,27 @@ import TableComponent from '../../components/TableComponent'
 import ButtonComponent from '../../components/ButtonComponent'
 import searchIcon from '/assets/icons/icon-search.svg'
 import exportIcon from '/assets/icons/icon-excel.svg'
+import infoIcon from '/assets/icons/icon-info.svg'
 import { useEffect, useState } from 'react'
 import { Form } from 'antd'
 import patientRegisterService from '../../services/patientRegisterService'
 import { useNavigate } from 'react-router-dom'
+import { Spin } from 'antd'
 
 const PatientManager = () => {
   const [registerServices, setRegisterServices] = useState([])
   const [form] = Form.useForm()
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
   // Fetch register services data by filter
   const fetchFilterRegisterServices = async (params: any) => {
+    setIsLoading(true)
     const response = await patientRegisterService.getFilterRegisterServices(
       params
     )
     setRegisterServices(response.data)
+    setIsLoading(false)
   }
 
   // Fetch register services data
@@ -32,7 +37,9 @@ const PatientManager = () => {
     const response = await patientRegisterService.getRegisterServices({
       date_filter: null
     })
-    setRegisterServices(response.data)
+    if (response?.data) {
+      setRegisterServices(response?.data)
+    }
   }
 
   useEffect(() => {
@@ -183,9 +190,12 @@ const PatientManager = () => {
           <div className="action-container">
             <div
               className="action-item"
-              key="edit"
+              key="view"
               onClick={() => handleNavigatePatient(record?.patient_id)}
             >
+              <img src={infoIcon} alt="viewable" />
+            </div>
+            <div className="action-item" key="edit">
               <img src={editIcon} alt="editable" />
             </div>
             <div className="action-item" key="delete">
@@ -216,55 +226,59 @@ const PatientManager = () => {
               icon={saveIcon}
             />
           </div>
-          <TableComponent
-            rowKey="id"
-            columns={patientColumns}
-            rowSelection={{
-              onChange: (selectedRowKeys, selectedRows) => {
-                console.log(
-                  `selectedRowKeys: ${selectedRowKeys}`,
-                  'selectedRows: ',
-                  selectedRows
-                )
-              }
-            }}
-            dataSource={registerServices}
-            pagination={false}
-            toolBarRender={() => [
-              <ButtonComponent
-                color="#10B981"
-                title="Xuất dữ liệu"
-                onClick={handleAddNewPatient}
-                icon={exportIcon}
-                styleProps={{ width: 100 }}
-              />
-            ]}
-            search={{
-              form,
-              searchText: 'Tìm kiếm',
-              resetText: 'Làm mới',
-              className: 'search-form',
-              collapsed: false,
-              labelWidth: 100,
-              collapseRender: false,
-              optionRender: () => {
-                return [
-                  <ButtonComponent
-                    color="#10B981"
-                    title="Tìm kiếm"
-                    icon={searchIcon}
-                    styleProps={{ width: 100 }}
-                    onClick={async () => {
-                      const values = await form.getFieldsValue()
-                      await fetchFilterRegisterServices(values)
-                      await form.resetFields()
-                      return
-                    }}
-                  />
-                ]
-              }
-            }}
-          />
+          { !isLoading ? (
+            <TableComponent
+              rowKey="id"
+              columns={patientColumns}
+              rowSelection={{
+                onChange: (selectedRowKeys, selectedRows) => {
+                  console.log(
+                    `selectedRowKeys: ${selectedRowKeys}`,
+                    'selectedRows: ',
+                    selectedRows
+                  )
+                }
+              }}
+              dataSource={registerServices}
+              pagination={false}
+              toolBarRender={() => [
+                <ButtonComponent
+                  color="#10B981"
+                  title="Xuất dữ liệu"
+                  onClick={handleAddNewPatient}
+                  icon={exportIcon}
+                  styleProps={{ width: 100 }}
+                />
+              ]}
+              search={{
+                form,
+                searchText: 'Tìm kiếm',
+                resetText: 'Làm mới',
+                className: 'search-form',
+                collapsed: false,
+                labelWidth: 100,
+                collapseRender: false,
+                optionRender: () => {
+                  return [
+                    <ButtonComponent
+                      color="#10B981"
+                      title="Tìm kiếm"
+                      icon={searchIcon}
+                      styleProps={{ width: 100 }}
+                      onClick={async () => {
+                        const values = await form.getFieldsValue()
+                        await fetchFilterRegisterServices(values)
+                        await form.resetFields()
+                        return
+                      }}
+                    />
+                  ]
+                }
+              }}
+            />
+          ) : (
+            <div className="loading-container"><Spin /></div>
+          )}
         </div>
       </div>
     </div>

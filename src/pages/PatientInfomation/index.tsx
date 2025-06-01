@@ -14,6 +14,7 @@ import { useParams } from 'react-router-dom'
 import patientRegisterService from '../../services/patientRegisterService'
 import { nations } from '../../mocks/nation'
 import { jobs } from '../../mocks/jobs'
+import { Spin } from 'antd'
 
 const columns = [
   {
@@ -129,7 +130,7 @@ const PatientInfomation = () => {
       <div className="container">
         {/* Header */}
         <div className="container-header">
-          <HeaderComponent title="Thông tin bệnh nhân" />
+          <HeaderComponent title={`Thông tin khách hàng: ${patientInfomation?.full_name}`} />
         </div>
         {/* Content */}
         { !isLoading ? (
@@ -383,7 +384,7 @@ const PatientInfomation = () => {
             )}
           </>
         ) : (
-          <div className="loading-container">Loading...</div>
+          <div className="loading-container"><Spin /></div>
         )}
       </div>
     </div>
