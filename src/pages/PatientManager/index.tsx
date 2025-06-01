@@ -15,9 +15,11 @@ import { Form } from 'antd'
 import patientRegisterService from '../../services/patientRegisterService'
 import { useNavigate } from 'react-router-dom'
 import { Spin } from 'antd'
+import * as XLSX from 'xlsx'
 
 const PatientManager = () => {
   const [registerServices, setRegisterServices] = useState([])
+  const [selectedRows, setSelectedRows] = useState<any[]>([])
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
@@ -128,7 +130,7 @@ const PatientManager = () => {
     },
     {
       title: 'Địa chỉ',
-      dataIndex: 'address',
+      dataIndex: 'full_address',
       search: false
     },
     {
@@ -207,6 +209,35 @@ const PatientManager = () => {
     }
   ]
 
+  // Handle export data
+  const handleExportData = () => {
+    const dataExport = selectedRows.map((row, index) => {
+      return {
+        STT: index + 1,
+        PID: row?.pid,
+        'Họ tên': row?.full_name,
+        'Ngày sinh': row?.birth_date,
+        'Giới tính': row?.gender === 1 ? 'Nam' : 'Nữ',
+        'SĐT': row?.phone,
+        'Địa chỉ': row?.full_address,
+        'Ngày tạo': row?.create_date,
+        'Ngày tiếp nhận': row?.receiverDate,
+        'Ngày cập nhật': row?.updatedAt,
+        'Đã thu tiền': row?.is_pay_before ? 'Đã thu' : 'Chưa thu',
+        'Bác sĩ khám chính': row?.mainDoctor,
+        'Phòng khám chính': row?.mainRoom,
+        'NV tiếp nhận': row?.receiver,
+        'NV cập nhật': row?.updater,
+        'Ghi chú': row?.note
+      }
+    })
+    const workbook = XLSX.utils.book_new()
+    const worksheet = XLSX.utils.json_to_sheet(dataExport)
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1')
+    XLSX.writeFile(workbook, 'Danh sách tiếp nhận.xlsx')
+    setSelectedRows([])
+  }
+
   return (
     <div className="patient-manager-page">
       <div className="container">
@@ -231,13 +262,7 @@ const PatientManager = () => {
               rowKey="id"
               columns={patientColumns}
               rowSelection={{
-                onChange: (selectedRowKeys, selectedRows) => {
-                  console.log(
-                    `selectedRowKeys: ${selectedRowKeys}`,
-                    'selectedRows: ',
-                    selectedRows
-                  )
-                }
+                onChange: (_, selectedRows) => setSelectedRows(selectedRows)
               }}
               dataSource={registerServices}
               pagination={false}
@@ -245,7 +270,7 @@ const PatientManager = () => {
                 <ButtonComponent
                   color="#10B981"
                   title="Xuất dữ liệu"
-                  onClick={handleAddNewPatient}
+                  onClick={() => handleExportData()}
                   icon={exportIcon}
                   styleProps={{ width: 100 }}
                 />

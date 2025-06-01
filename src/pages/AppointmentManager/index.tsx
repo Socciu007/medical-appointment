@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import './style.scss'
 import HeaderComponent from '../../components/HeaderComponent'
 import TableComponent from '../../components/TableComponent'
@@ -5,6 +6,9 @@ import ButtonComponent from '../../components/ButtonComponent'
 import saveIcon from '/assets/icons/icon-save.svg'
 import searchIcon from '/assets/icons/icon-search.svg'
 import { useNavigate } from 'react-router-dom'
+import appointmentService from '../../services/appointmentService'
+import { useEffect, useState } from 'react'
+import { Spin } from 'antd'
 
 const appointmentColumns = [
   {
@@ -15,35 +19,38 @@ const appointmentColumns = [
   },
   {
     title: 'Nguồn',
-    dataIndex: 'source',
-    key: 'source'
+    dataIndex: 'resource_id',
+    key: 'resource_id'
   },
   {
     title: 'Họ tên',
-    dataIndex: 'name',
-    key: 'name'
+    dataIndex: 'customer_name',
+    key: 'customer_name'
   },
   {
     title: 'Ngày sinh',
-    dataIndex: 'dateOfBirth',
-    key: 'dateOfBirth',
+    dataIndex: 'date_of_birth',
+    key: 'date_of_birth',
     search: false
   },
   {
     title: 'Giới tính',
-    dataIndex: 'gender',
-    key: 'gender',
-    search: false
+    dataIndex: 'gender_id',
+    key: 'gender_id',
+    search: false,
+    render: (_: any, record: any) => {
+      return record.gender_id === 1 ? 'Nam' : 'Nữ'
+    }
   },
   {
     title: 'SĐT',
-    dataIndex: 'phone',
-    key: 'phone'
+    dataIndex: 'customer_phone',
+    key: 'customer_phone'
   },
   {
     title: 'Dịch vụ hẹn',
-    dataIndex: 'service',
-    key: 'service',
+    dataIndex: 'register_type',
+    key: 'register_type',
     search: false
   },
   {
@@ -53,20 +60,21 @@ const appointmentColumns = [
   },
   {
     title: 'NV nhận lịch',
-    dataIndex: 'receptionist',
-    key: 'receptionist',
+    dataIndex: 'emp_received_id',
+    key: 'emp_received_id',
     search: false
   },
   {
     title: 'Thời gian đặt',
-    dataIndex: 'time',
-    key: 'time',
+    dataIndex: 'time_booking',
+    key: 'time_booking',
     search: false
   },
   {
     title: 'Thời gian hẹn',
-    dataIndex: 'appointmentTime',
-    key: 'appointmentTime'
+    dataIndex: 'time_appointment',
+    key: 'time_appointment',
+    valueType: 'date'
   },
   {
     title: 'Trạng thái',
@@ -75,8 +83,8 @@ const appointmentColumns = [
   },
   {
     title: 'Thời gian xác nhận',
-    dataIndex: 'confirmationTime',
-    key: 'confirmationTime',
+    dataIndex: 'time_accept',
+    key: 'time_accept',
     search: false
   },
   {
@@ -95,6 +103,24 @@ const appointmentColumns = [
 
 const AppointmentManager = () => {
   const navigate = useNavigate()
+  const [appointments, setAppointments] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+
+  // Fetch appointment list
+  const fetchAppointments = async () => {
+    setIsLoading(true)
+    const res = await appointmentService.getAppointments()
+    if (res?.data) {
+      setAppointments(res.data)
+    }
+    setIsLoading(false)
+  }
+
+  // Set state appointments
+  useEffect(() => {
+    fetchAppointments()
+  }, [])
+
   return (
     <div className="appointment-manager-page">
       <div className="container">
@@ -114,38 +140,42 @@ const AppointmentManager = () => {
               onClick={() => navigate('/add-appointment')}
             />
           </div>
-          <TableComponent
-            rowKey="id"
-            columns={appointmentColumns}
-            rowSelection={{
-              type: 'checkbox',
-              onChange: (selectedRowKeys, selectedRows) => {
-                console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
-              }
-            }}
-            dataSource={[]}
-            pagination={false}
-            toolBarRender={false}
-            search={{
-              searchText: 'Tìm kiếm',
-              resetText: 'Làm mới',
-              className: 'search-form',
-              collapsed: false,
-              collapseRender: false,
-              labelWidth: 100,
-              optionRender: () => {
-                return [
-                  <ButtonComponent
-                    color="#10B981"
-                    title="Tìm kiếm"
-                    icon={searchIcon}
-                    styleProps={{ width: 100 }}
-                    onClick={() => {}}
-                  />
-                ]
-              }
-            }}
-          />
+          {isLoading ? (
+            <div className="loading-container"><Spin /></div>
+          ) : (
+            <TableComponent
+              rowKey="id"
+              columns={appointmentColumns}
+              rowSelection={{
+                type: 'checkbox',
+                onChange: (selectedRowKeys, selectedRows) => {
+                  console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
+                }
+              }}
+              dataSource={appointments}
+              pagination={false}
+              toolBarRender={false}
+              search={{
+                searchText: 'Tìm kiếm',
+                resetText: 'Làm mới',
+                className: 'search-form',
+                collapsed: false,
+                collapseRender: false,
+                labelWidth: 100,
+                optionRender: () => {
+                  return [
+                    <ButtonComponent
+                      color="#10B981"
+                      title="Tìm kiếm"
+                      icon={searchIcon}
+                      styleProps={{ width: 100 }}
+                      onClick={() => {}}
+                    />
+                  ]
+                }
+              }}
+            />
+          )}
         </div>
       </div>
     </div>
