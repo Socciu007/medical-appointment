@@ -58,7 +58,7 @@ export const routes = [
     page: AddPrice
   },
   {
-    path: '/patient',
+    path: '/patients/:id',
     page: PatientInformation
   }
 ]

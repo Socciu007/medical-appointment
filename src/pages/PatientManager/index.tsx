@@ -14,137 +14,6 @@ import { Form } from 'antd'
 import patientRegisterService from '../../services/patientRegisterService'
 import { useNavigate } from 'react-router-dom'
 
-const patientColumns = [
-  {
-    title: 'STT',
-    dataIndex: 'stt',
-    search: false,
-    render: (_: any, __: any, index: number) => <div>{index + 1}</div>
-  },
-  {
-    title: 'PID',
-    dataIndex: 'pid',
-    key: 'pid'
-  },
-  {
-    title: 'Số BA mạn tính',
-    dataIndex: 'number',
-    search: false
-  },
-  {
-    title: 'Mã hồ sơ',
-    dataIndex: 'file_code',
-    key: 'file_code'
-  },
-  {
-    title: 'Họ tên',
-    dataIndex: 'full_name',
-    key: 'full_name'
-  },
-  {
-    title: 'Ngày sinh',
-    dataIndex: 'birth_date',
-    key: 'birth_date',
-    valueType: 'date'
-  },
-  {
-    title: 'Giới tính',
-    dataIndex: 'gender',
-    key: 'gender',
-    render: (record: any) => (
-      <div>{record.gender === 0 ? 'Nam' : 'Nữ'}</div>
-    )
-  },
-  {
-    title: 'SĐT',
-    dataIndex: 'phone',
-    key: 'phone'
-  },
-  {
-    title: 'Ngày tạo',
-    dataIndex: 'create_date',
-    key: 'create_date',
-    valueType: 'date',
-    search: false
-  },
-  {
-    title: 'Ngày tiếp nhận',
-    dataIndex: 'receiverDate',
-    valueType: 'date',
-    search: false
-  },
-  {
-    title: 'Địa chỉ',
-    dataIndex: 'address',
-    search: false
-  },
-  {
-    title: 'Loại',
-    dataIndex: 'exam_type',
-    key: 'exam_type'
-  },
-  {
-    title: 'Nhóm khám',
-    dataIndex: 'exam_group',
-    key: 'exam_group'
-  },
-  {
-    title: 'Bác sĩ khám chính',
-    dataIndex: 'mainDoctor',
-    search: false
-  },
-  {
-    title: 'Phòng khám chính',
-    dataIndex: 'mainRoom',
-    search: false
-  },
-  {
-    title: 'NV tiếp nhận',
-    dataIndex: 'receiver',
-    key: 'receiver'
-  },
-  {
-    title: 'NV cập nhật',
-    dataIndex: 'updater',
-    search: false
-  },
-  {
-    title: 'Ngày cập nhật',
-    dataIndex: 'updatedAt',
-    valueType: 'date',
-    search: false
-  },
-  {
-    title: 'Đã thu tiền',
-    dataIndex: 'is_pay_before',
-    search: false,
-    render: (record: any) => (
-      <div>{record.is_pay_before ? 'Đã thu' : 'Chưa thu'}</div>
-    )
-  },
-  {
-    title: 'Ghi chú',
-    dataIndex: 'note',
-    search: false
-  },
-  {
-    title: 'Tác vụ',
-    dataIndex: 'action',
-    search: false,
-    // width: 100,
-    render: () => (
-      <div className="action-container">
-        <div className="action-item" key="edit">
-          <img src={editIcon} alt="editable" />
-        </div>
-        <div className="action-item" key="delete">
-          <img src={deleteIcon} alt="deletable" />
-        </div>
-      </div>
-    )
-  }
-]
-
 const PatientManager = () => {
   const [registerServices, setRegisterServices] = useState([])
   const [form] = Form.useForm()
@@ -152,11 +21,9 @@ const PatientManager = () => {
 
   // Fetch register services data by filter
   const fetchFilterRegisterServices = async (params: any) => {
-    console.log('params', params)
     const response = await patientRegisterService.getFilterRegisterServices(
       params
     )
-    console.log('response', response)
     setRegisterServices(response.data)
   }
 
@@ -177,6 +44,158 @@ const PatientManager = () => {
     localStorage.setItem('key-menu', '')
     navigate('/')
   }
+
+  // Handle navigate to patient information
+  const handleNavigatePatient = (id: string) => {
+    navigate(`/patients/${id}`)
+  }
+
+  // Patient columns
+  const patientColumns = [
+    {
+      title: 'STT',
+      dataIndex: 'stt',
+      search: false,
+      render: (_: any, __: any, index: number) => <div>{index + 1}</div>
+    },
+    {
+      title: 'PID',
+      dataIndex: 'pid',
+      key: 'pid'
+    },
+    {
+      title: 'Số BA mạn tính',
+      dataIndex: 'number',
+      search: false
+    },
+    {
+      title: 'Mã hồ sơ',
+      dataIndex: 'file_code',
+      key: 'file_code'
+    },
+    {
+      title: 'Họ tên',
+      dataIndex: 'full_name',
+      key: 'full_name'
+    },
+    {
+      title: 'Ngày sinh',
+      dataIndex: 'birth_date',
+      key: 'birth_date',
+      valueType: 'date'
+    },
+    {
+      title: 'Giới tính',
+      dataIndex: 'gender',
+      key: 'gender',
+      valueType: 'select',
+      valueEnum: {
+        0: {
+          text: 'Nữ'
+        },
+        1: {
+          text: 'Nam'
+        }
+      },
+      render: (_: any, record: any) => {
+        return <div>{record.gender === 1 ? 'Nam' : 'Nữ'}</div>
+      }
+    },
+    {
+      title: 'SĐT',
+      dataIndex: 'phone',
+      key: 'phone'
+    },
+    {
+      title: 'Ngày tạo',
+      dataIndex: 'create_date',
+      key: 'create_date',
+      valueType: 'date',
+      search: false
+    },
+    {
+      title: 'Ngày tiếp nhận',
+      dataIndex: 'receiverDate',
+      valueType: 'date',
+      search: false
+    },
+    {
+      title: 'Địa chỉ',
+      dataIndex: 'address',
+      search: false
+    },
+    {
+      title: 'Loại',
+      dataIndex: 'exam_type',
+      key: 'exam_type'
+    },
+    {
+      title: 'Nhóm khám',
+      dataIndex: 'exam_group',
+      key: 'exam_group'
+    },
+    {
+      title: 'Bác sĩ khám chính',
+      dataIndex: 'mainDoctor',
+      search: false
+    },
+    {
+      title: 'Phòng khám chính',
+      dataIndex: 'mainRoom',
+      search: false
+    },
+    {
+      title: 'NV tiếp nhận',
+      dataIndex: 'receiver',
+      key: 'receiver'
+    },
+    {
+      title: 'NV cập nhật',
+      dataIndex: 'updater',
+      search: false
+    },
+    {
+      title: 'Ngày cập nhật',
+      dataIndex: 'updatedAt',
+      valueType: 'date',
+      search: false
+    },
+    {
+      title: 'Đã thu tiền',
+      dataIndex: 'is_pay_before',
+      search: false,
+      render: (record: any) => (
+        <div>{record.is_pay_before ? 'Đã thu' : 'Chưa thu'}</div>
+      )
+    },
+    {
+      title: 'Ghi chú',
+      dataIndex: 'note',
+      search: false
+    },
+    {
+      title: 'Tác vụ',
+      dataIndex: 'action',
+      search: false,
+      // width: 100,
+      render: (_: any, record: any) => {
+        return (
+          <div className="action-container">
+            <div
+              className="action-item"
+              key="edit"
+              onClick={() => handleNavigatePatient(record?.patient_id)}
+            >
+              <img src={editIcon} alt="editable" />
+            </div>
+            <div className="action-item" key="delete">
+              <img src={deleteIcon} alt="deletable" />
+            </div>
+          </div>
+        )
+      }
+    }
+  ]
 
   return (
     <div className="patient-manager-page">

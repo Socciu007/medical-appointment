@@ -13,9 +13,10 @@ type InputComponentProps = {
   rules?: Rule[];
   required?: boolean;
   disabled?: boolean;
+  initialValue?: string;
 };
 
-const InputComponent = ({ name, label, placeholder, width, inputProps, rules, required, disabled, ...props }: InputComponentProps) => {
+const InputComponent = ({ name, label, placeholder, width, inputProps, rules, required, disabled, initialValue, ...props }: InputComponentProps) => {
   return (
     <ProFormText
       className="input-component"
@@ -27,6 +28,7 @@ const InputComponent = ({ name, label, placeholder, width, inputProps, rules, re
       rules={rules}
       required={required}
       disabled={disabled}
+      initialValue={initialValue}
       {...props}
     />
   )
