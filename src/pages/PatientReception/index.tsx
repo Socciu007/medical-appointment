@@ -271,15 +271,10 @@ const PatientReception = () => {
       !values.full_address ||
       !values.address ||
       !values.email ||
-      !values.national_id ||
       !values.id_num ||
       !values.id_issue_date ||
       !values.id_issue_by ||
-      !values.id_expired_date ||
-      !values.ethnic_id ||
-      !values.religion_id ||
-      !values.career_id ||
-      !values.work_place
+      !values.id_expired_date
     ) {
       toast.warning('Vui lòng nhập đầy đủ thông tin')
       return
@@ -491,6 +486,7 @@ const PatientReception = () => {
                       label="Điện thoại:"
                       name="phone_number"
                       placeholder="Nhập điện thoại"
+                      required={true}
                     />
                   </div>
                   <div className="row row-2">
@@ -498,6 +494,7 @@ const PatientReception = () => {
                       label="Địa chỉ HC:"
                       name="full_address"
                       placeholder="Nhập địa chỉ HC"
+                      required={true}
                     />
                   </div>
                   <div className="row row-2">
@@ -505,6 +502,7 @@ const PatientReception = () => {
                       label="Địa chỉ:"
                       name="address"
                       placeholder="Nhập địa chỉ"
+                      required={true}
                     />
                   </div>
                   <div className="row">
@@ -513,6 +511,7 @@ const PatientReception = () => {
                       name="email"
                       placeholder="Nhập email"
                       rules={[{ type: 'email', message: 'Email không hợp lệ' }]}
+                      required={true}
                     />
                     <SelectComponent
                       label="Quốc tịch:"
@@ -546,16 +545,19 @@ const PatientReception = () => {
                       name="passport"
                       placeholder="Chọn loại giấy tờ"
                       options={identification}
+                      required={true}
                     />
                     <InputComponent
                       label="Số CCCD:"
                       name="id_num"
                       placeholder="Nhập số CCCD"
+                      required={true}
                     />
                     <SelectDatePicker
                       label="Ngày cấp:"
                       name="id_issue_date"
                       placeholder="Chọn ngày cấp"
+                      required={true}
                     />
                   </div>
                   <div className="row row-1">
@@ -563,11 +565,13 @@ const PatientReception = () => {
                       label="Nơi cấp:"
                       name="id_issue_by"
                       placeholder="Nhập nơi cấp"
+                      required={true}
                     />
                     <SelectDatePicker
                       label="Thời hạn:"
                       name="id_expired_date"
-                      placeholder="Nhập thời hạn"
+                      placeholder="Chọn thời hạn"
+                      required={true}
                     />
                   </div>
                   <div className="row">
