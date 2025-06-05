@@ -137,52 +137,6 @@ const relationOptions = [
   }
 ]
 
-const resourceVisitOptions = [
-  {
-    label: 'Tự đến',
-    value: 'self',
-    id: 0
-  },
-  {
-    label: 'MXH',
-    value: 'social',
-    id: 1
-  },
-  {
-    label: 'KH tái khám',
-    value: 'revisit',
-    id: 2
-  },
-  {
-    label: 'Người giới thiệu',
-    value: 'referral',
-    id: 3
-  },
-  {
-    label: 'Khác',
-    value: 'other',
-    id: 4
-  }
-]
-
-const resourceUserOptions = [
-  {
-    label: 'Khách hàng',
-    value: 'customer',
-    id: 0
-  },
-  {
-    label: 'Bác sĩ',
-    value: 'doctor',
-    id: 1
-  },
-  {
-    label: 'CTV/NV',
-    value: 'staff',
-    id: 2
-  }
-]
-
 const registerTypeOptions = [
   { label: 'BHYT', value: 'bhyt', id: 0 },
   { label: 'Dịch vụ', value: 'service', id: 1 }
@@ -247,9 +201,8 @@ const PatientReception = () => {
   const formRef = useRef<FormInstance>(null)
   const [priorityTypes, setPriorityTypes] = useState<OptionType[]>([])
   const [services, setServices] = useState<OptionType[]>([])
-  // const [resourceUsers, setResourceUsers] = useState<OptionType[]>([])
-  // const [resourceSocials, setResourceSocials] = useState<OptionType[]>([])
-  // const [resourceTypes, setResourceTypes] = useState<OptionType[]>([])
+  const [resourceUsers, setResourceUsers] = useState<OptionType[]>([])
+  const [resourceTypes, setResourceTypes] = useState<OptionType[]>([])
 
   useEffect(() => {
     const fetchPriorityTypes = async () => {
@@ -276,45 +229,34 @@ const PatientReception = () => {
         )
       )
     }
-    // const fetchResourceUsers = async () => {
-    //   const response = await utilsService.getResourceUsers()
-    //   setResourceUsers(
-    //     response?.data?.items?.map(
-    //       (item: { name: string; code: string; id: number }) => ({
-    //         label: item?.name,
-    //         value: item?.code,
-    //         id: item?.id
-    //       })
-    //     )
-    //   )
-    // }
-    // const fetchResourceSocials = async () => {
-    //   const response = await utilsService.getResourceSocials()
-    //   setResourceSocials(
-    //     response?.data?.items?.map(
-    //       (item: { name: string; code: string; id: number }) => ({
-    //         label: item?.name,
-    //         value: item?.code,
-    //         id: item?.id
-    //       })
-    //     )
-    //   )
-    // }
-    // const fetchResourceTypes = async () => {
-    //   const response = await utilsService.getResources()
-    //   setResourceTypes(
-    //     response?.data?.map(
-    //       (item: { name: string; code: string; id: number }) => ({
-    //         label: item?.name,
-    //         value: item?.code,
-    //         id: item?.id
-    //       })
-    //     )
-    //   )
-    // }
+    const fetchResourceUsers = async () => {
+      const response = await utilsService.getResourceUsers()
+      setResourceUsers(
+        response?.data?.map(
+          (item: { name: string; code: string; id: number }) => ({
+            label: item?.name,
+            value: item?.code,
+            id: item?.id
+          })
+        )
+      )
+    }
+    const fetchResourceTypes = async () => {
+      const response = await utilsService.getResources()
+      setResourceTypes(
+        response?.data?.map(
+          (item: { name: string; code: string; id: number }) => ({
+            label: item?.name,
+            value: item?.code,
+            id: item?.id
+          })
+        )
+      )
+    }
     fetchPriorityTypes()
     fetchServices()
-    // fetchResourceSocials()
+    fetchResourceUsers()
+    fetchResourceTypes()
   }, [])
 
   // Handle save data patient
@@ -376,11 +318,11 @@ const PatientReception = () => {
             (item) => item?.value === values?.request_type
           )?.id || 0,
         resource_visit:
-          resourceVisitOptions?.find(
+          resourceTypes?.find(
             (item) => item?.value === values?.resource_visit
           )?.id || 0,
         resource_user:
-          resourceUserOptions?.find(
+          resourceUsers?.find(
             (item) => item?.value === values?.resource_user
           )?.id || 0,
         is_insuarance: values.is_insuarance,
@@ -755,14 +697,14 @@ const PatientReception = () => {
                       label="Nguồn khách:"
                       name="resource_visit"
                       placeholder="Chọn nguồn khách"
-                      options={resourceVisitOptions}
+                      options={resourceTypes}
                       required={true}
                     />
                     <SelectComponent
                       label="Giới thiệu:"
                       name="resource_user"
                       placeholder="Nhập người giới thiệu"
-                      options={resourceUserOptions}
+                      options={resourceUsers}
                     />
                   </div>
                   <div className="row row-4 row-checkbox">

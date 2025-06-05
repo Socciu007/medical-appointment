@@ -14,13 +14,13 @@ const utilsService = {
     return axiosInstance.get('/services')
   },
   getResources: () => {
-    return axiosInstance.get('/resources-types')
+    return axiosInstance.get('/resources-type')
   },
   getResourceUsers: () => {
-    return axiosInstance.get('/resources-types/user')
+    return axiosInstance.get('/resources-type/user')
   },
   getResourceSocials: () => {
-    return axiosInstance.get('/resources-types/social')
+    return axiosInstance.get('/resources-type/resource-social')
   }
 }
 

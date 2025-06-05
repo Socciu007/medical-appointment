@@ -55,6 +55,8 @@ const AddAppointment = () => {
   const [doctors, setDoctors] = useState<OptionType[]>([])
   const [services, setServices] = useState<OptionType[]>([])
   const [fullAddress, setFullAddress] = useState<OptionType[]>([])
+  const [resourceTypes, setResourceTypes] = useState<OptionType[]>([])
+  const [resourceSocials, setResourceSocials] = useState<OptionType[]>([])
 
   // Service columns
   const serviceColumns = [
@@ -119,7 +121,7 @@ const AddAppointment = () => {
     const values = formRef.current?.getFieldsValue()
     const saveData = {
       emp_received_id: typeof values?.emp_received_id === 'number' ? values?.emp_received_id : 0,
-      resource_id: typeof values?.resource_id === 'number' ? values?.resource_id : 0,
+      resource_id: resourceTypes.find((item) => item.value === values?.resource_id)?.id || 0,
       referrer: values?.referrer,
       phone_booking: values?.phone_booking,
       time_booking: values?.time_booking,
@@ -179,8 +181,34 @@ const AddAppointment = () => {
         )
       )
     }
+    const fetchResourceTypes = async () => {
+      const response = await utilsService.getResources()
+      setResourceTypes(
+        response?.data?.map(
+          (item: { name: string; code: string; id: number }) => ({
+            label: item?.name,
+            value: item?.code,
+            id: item?.id
+          })
+        )
+      )
+    }
+    const fetchResourceSocials = async () => {
+      const response = await utilsService.getResourceSocials()
+      setResourceSocials(
+        response?.data?.map(
+          (item: { name: string; code: string; id: number }) => ({
+            label: item?.name,
+            value: item?.code,
+            id: item?.id
+          })
+        )
+      )
+    }
     fetchDoctors()
     fetchServices()
+    fetchResourceTypes()
+    fetchResourceSocials()
   }, [])
 
   return (
@@ -237,20 +265,22 @@ const AddAppointment = () => {
                 />
               </ProForm.Group>
               <ProForm.Group>
-                <InputComponent
+                <SelectComponent
                   label="Nguồn"
                   name="resource_id"
-                  placeholder="Nhập nguồn"
+                  placeholder="Chọn nguồn"
+                  options={resourceTypes}
                 />
                 <InputComponent
                   label="Người giới thiệu"
                   name="referrer"
                   placeholder="Nhập người giới thiệu"
                 />
-                <InputComponent
+                <SelectComponent
                   label="MXH"
                   name="customer_social"
                   placeholder="Nhập MXH"
+                  options={resourceSocials}
                 />
               </ProForm.Group>
               <ProForm.Group>
@@ -328,7 +358,16 @@ const AddAppointment = () => {
                   placeholder="Chọn thời gian"
                 />
                 <SelectComponent
-                  options={[]}
+                  options={[{
+                    label: 'Đang xử lý',
+                    value: 'pending'
+                  }, {
+                    label: 'Đã xác nhận',
+                    value: 'confirmed'
+                  }, {
+                    label: 'Đã hủy',
+                    value: 'canceled'
+                  }]}
                   label="Trạng thái"
                   name="status"
                   placeholder="Chọn trạng thái"
