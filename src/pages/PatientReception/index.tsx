@@ -237,11 +237,19 @@ const initialPatient = {
   is_pay_before: false
 }
 
+interface OptionType {
+  label: string
+  value: string
+  id: number
+}
+
 const PatientReception = () => {
   const formRef = useRef<FormInstance>(null)
-  const [priorityTypes, setPriorityTypes] = useState<
-    { label: string; value: string; id: number }[]
-  >([])
+  const [priorityTypes, setPriorityTypes] = useState<OptionType[]>([])
+  const [services, setServices] = useState<OptionType[]>([])
+  // const [resourceUsers, setResourceUsers] = useState<OptionType[]>([])
+  // const [resourceSocials, setResourceSocials] = useState<OptionType[]>([])
+  // const [resourceTypes, setResourceTypes] = useState<OptionType[]>([])
 
   useEffect(() => {
     const fetchPriorityTypes = async () => {
@@ -256,7 +264,57 @@ const PatientReception = () => {
         )
       )
     }
+    const fetchServices = async () => {
+      const response = await utilsService.getServices()
+      setServices(
+        response?.data?.map(
+          (item: { name: string; code: string; id: number }) => ({
+            label: item?.name,
+            value: item?.code,
+            id: item?.id
+          })
+        )
+      )
+    }
+    // const fetchResourceUsers = async () => {
+    //   const response = await utilsService.getResourceUsers()
+    //   setResourceUsers(
+    //     response?.data?.items?.map(
+    //       (item: { name: string; code: string; id: number }) => ({
+    //         label: item?.name,
+    //         value: item?.code,
+    //         id: item?.id
+    //       })
+    //     )
+    //   )
+    // }
+    // const fetchResourceSocials = async () => {
+    //   const response = await utilsService.getResourceSocials()
+    //   setResourceSocials(
+    //     response?.data?.items?.map(
+    //       (item: { name: string; code: string; id: number }) => ({
+    //         label: item?.name,
+    //         value: item?.code,
+    //         id: item?.id
+    //       })
+    //     )
+    //   )
+    // }
+    // const fetchResourceTypes = async () => {
+    //   const response = await utilsService.getResources()
+    //   setResourceTypes(
+    //     response?.data?.map(
+    //       (item: { name: string; code: string; id: number }) => ({
+    //         label: item?.name,
+    //         value: item?.code,
+    //         id: item?.id
+    //       })
+    //     )
+    //   )
+    // }
     fetchPriorityTypes()
+    fetchServices()
+    // fetchResourceSocials()
   }, [])
 
   // Handle save data patient
@@ -336,7 +394,7 @@ const PatientReception = () => {
       },
       services: [
         {
-          service_id: parseInt(values.service_id) || 0,
+          service_id: services?.find((item) => item?.value === values?.service_id)?.id || 0,
           dept_service: parseInt(values.dept_service) || 0,
           is_pay_before: values.is_pay_before,
           reg_num: generateCode(getRandomSiteCode()),
@@ -356,6 +414,7 @@ const PatientReception = () => {
         contact_address: values.contact_address
       }
     }
+    console.log('RegisterPatientData', data)
     const response = await patientRegisterService.createRegisterPatient(data)
     if (response?.status === 200) {
       toast.success('Đăng ký dịch vụ thành công')
@@ -746,11 +805,12 @@ const PatientReception = () => {
                     />
                   </div>
                   <div className="row">
-                    <InputComponent
+                    <SelectComponent
                       label="Dịch vụ:"
                       name="service_id"
-                      placeholder="Nhập dịch vụ"
+                      placeholder="Chọn dịch vụ"
                       required={true}
+                      options={services}
                     />
                   </div>
                   <div className="row">

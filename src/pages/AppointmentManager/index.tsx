@@ -15,7 +15,10 @@ const appointmentColumns = [
     title: 'STT',
     dataIndex: 'stt',
     key: 'stt',
-    search: false
+    search: false,
+    render: (_: any, __: any, index: number) => {
+      return index + 1
+    }
   },
   {
     title: 'Nguồn',
@@ -68,7 +71,8 @@ const appointmentColumns = [
     title: 'Thời gian đặt',
     dataIndex: 'time_booking',
     key: 'time_booking',
-    search: false
+    search: false,
+    valueType: 'date'
   },
   {
     title: 'Thời gian hẹn',
@@ -85,20 +89,22 @@ const appointmentColumns = [
     title: 'Thời gian xác nhận',
     dataIndex: 'time_accept',
     key: 'time_accept',
+    valueType: 'date',
     search: false
   },
   {
     title: 'Ghi chú',
     dataIndex: 'note',
     key: 'note',
-    search: false
-  },
-  {
-    title: 'Tác vụ',
-    dataIndex: 'action',
-    key: 'action',
-    search: false
+    search: false,
+    width: 200
   }
+  // {
+  //   title: 'Tác vụ',
+  //   dataIndex: 'action',
+  //   key: 'action',
+  //   search: false
+  // }
 ]
 
 const AppointmentManager = () => {

@@ -23,7 +23,7 @@ const TableComponent = ({ columns, dataSource, rowKey, search, toolBarRender, pa
       rowSelection={rowSelection}
       search={search}
       toolBarRender={toolBarRender}
-      pagination={pagination}
+      pagination={pagination || { pageSize: 10, showTotal: (total, range) => `${range[0]}-${range[1]} of ${total}` }}
       columns={columns}
       dataSource={dataSource}
       options={{
