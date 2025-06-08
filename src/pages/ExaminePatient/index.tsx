@@ -5,6 +5,11 @@ import TableComponent from '../../components/TableComponent'
 import searchIcon from '/assets/icons/icon-search.svg'
 import TabsComponent from '../../components/TabsComponent'
 import { useState } from 'react'
+import ExamineComponent from '../../components/ExamineComponent'
+import downupIcon from '/assets/icons/icon-downup.svg'
+import { Steps, Popover } from 'antd'
+import type { StepsProps } from 'antd'
+
 const examineColumns = [
   {
     title: 'STT',
@@ -70,6 +75,19 @@ const ExaminePatient = () => {
   const handleActiveTab = (index: number) => {
     setActiveTab(index)
   }
+
+  // Custom dot for steps
+  const customDot: StepsProps['progressDot'] = (dot, { status, index }) => (
+    <Popover
+      content={
+        <span>
+          step {index} status: {status}
+        </span>
+      }
+    >
+      {dot}
+    </Popover>
+  );
   return (
     <div className="examine-patient-page">
       <div className="container">
@@ -141,8 +159,76 @@ const ExaminePatient = () => {
             </>
           )}
           {activeTab === 1 && (
-            <div className="container-content-header">
-              <p>Chi tiết thông tin ngoại trú</p>
+            <div className="info-examine">
+              <div className="info-examine-header">
+                <ExamineComponent />
+              </div>
+              <div className="info-examine-content">
+                <div className="info-examine-content-tab">
+                  <TabsComponent
+                    list={['Khám bệnh', 'Phiếu chỉ định', 'Lịch sử thuốc', 'Chi tiết khám', 'Lịch sử khám']}
+                    activeIndex={0}
+                    handleActive={() => {}}
+                  />
+                  <div className="info-examine-content-tab-btn">
+                    <ButtonComponent
+                      color="#17C256"
+                      title="Khám thêm CK"
+                      styleProps={{ width: 100 }}
+                      onClick={() => {}}
+                    />
+                    <ButtonComponent
+                      color="#6885E5"
+                      title="Chuyển"
+                      icon={downupIcon}
+                      styleProps={{ width: 75 }}
+                      onClick={() => {}}
+                    />
+                    <ButtonComponent
+                      color="#6885E5"
+                      title="Tác vụ"
+                      icon={downupIcon}
+                      styleProps={{ width: 75 }}
+                      onClick={() => {}}
+                    />
+                  </div>
+                </div>
+                <div className="info-examine-content-right">
+                  <div className="info-examine-content-right-header"></div>
+                  <div className='info-examine-content-right-step'>
+                    <Steps
+                      // current={1}
+                      progressDot={customDot}
+                      items={[
+                        {
+                          title: 'Khảo sát'
+                        },
+                        {
+                          title: 'Khám tổng quát'
+                        },
+                        {
+                          title: 'Khám chuyên sâu'
+                        },
+                        {
+                          title: 'Chỉ định CLS'
+                        },
+                        {
+                          title: 'Kết quả CLS'
+                        },
+                        {
+                          title: 'Guidelin điều trị'
+                        },
+                        {
+                          title: 'Kết luận'
+                        },
+                        {
+                          title: 'Chăm sóc'
+                        }
+                      ]}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </div>

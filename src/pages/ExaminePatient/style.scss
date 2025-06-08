@@ -36,4 +36,17 @@
     width: 100%;
     margin-bottom: 0.5rem;
   }
+  .info-examine-content {
+    &-tab {
+      display: flex;
+      align-items: center;
+      .tabs-component {
+        margin: 0 !important;
+      }
+      &-btn {
+        display: flex;
+        gap: 4px;
+      }
+    }
+  }
 }
