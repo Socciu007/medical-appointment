@@ -87,7 +87,7 @@ const ExaminePatient = () => {
     >
       {dot}
     </Popover>
-  );
+  )
   return (
     <div className="examine-patient-page">
       <div className="container">
@@ -196,8 +196,10 @@ const ExaminePatient = () => {
                 <div className="info-examine-content-right">
                   <div className="info-examine-content-right-header"></div>
                   <div className='info-examine-content-right-step'>
+                    <div></div>
                     <Steps
                       // current={1}
+                      size="small"
                       progressDot={customDot}
                       items={[
                         {
