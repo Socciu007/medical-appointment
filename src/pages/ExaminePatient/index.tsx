@@ -3,13 +3,17 @@ import HeaderComponent from '../../components/HeaderComponent'
 import ButtonComponent from '../../components/ButtonComponent'
 import TableComponent from '../../components/TableComponent'
 import searchIcon from '/assets/icons/icon-search.svg'
+import minusIcon from '/assets/icons/icon-minus.svg'
+import plusIcon from '/assets/icons/icon-pluswhite.svg'
+import exportIcon from '/assets/icons/icon-excel.svg'
 import TabsComponent from '../../components/TabsComponent'
 import { useState } from 'react'
 import ExamineComponent from '../../components/ExamineComponent'
 import downupIcon from '/assets/icons/icon-downup.svg'
-import { Steps, Popover } from 'antd'
-import type { StepsProps } from 'antd'
-
+import ExamineHead from '../../components/ExamineComponent/head'
+import { ProForm } from '@ant-design/pro-form'
+import InputComponent from '../../components/InputComponent'
+import Exam1 from '../../components/ExamineComponent/exam1'
 const examineColumns = [
   {
     title: 'STT',
@@ -72,28 +76,18 @@ const examineColumns = [
 
 const ExaminePatient = () => {
   const [activeTab, setActiveTab] = useState(0)
+  const [typeExamine, setTypeExamine] = useState(0)
   const handleActiveTab = (index: number) => {
     setActiveTab(index)
   }
 
-  // Custom dot for steps
-  const customDot: StepsProps['progressDot'] = (dot, { status, index }) => (
-    <Popover
-      content={
-        <span>
-          step {index} status: {status}
-        </span>
-      }
-    >
-      {dot}
-    </Popover>
-  )
   return (
     <div className="examine-patient-page">
       <div className="container">
         {/* Header */}
         <div className="container-header">
-          <HeaderComponent title="Khám bệnh" />
+          {activeTab === 0 && <HeaderComponent title="Khám bệnh" isShowActions={true} />}
+          {activeTab === 1 && <HeaderComponent title="Khám bệnh" isShowInExamine={true} />}
         </div>
 
         {/* Content */}
@@ -129,8 +123,8 @@ const ExaminePatient = () => {
                   return [
                     <ButtonComponent
                       color="#10B981"
-                      title="Thêm mới"
-                      icon={searchIcon}
+                      title="Xuất dữ liệu"
+                      icon={exportIcon}
                       styleProps={{ width: 100 }}
                       onClick={() => {}}
                     />
@@ -166,9 +160,15 @@ const ExaminePatient = () => {
               <div className="info-examine-content">
                 <div className="info-examine-content-tab">
                   <TabsComponent
-                    list={['Khám bệnh', 'Phiếu chỉ định', 'Lịch sử thuốc', 'Chi tiết khám', 'Lịch sử khám']}
-                    activeIndex={0}
-                    handleActive={() => {}}
+                    list={[
+                      'Khám bệnh',
+                      'Phiếu chỉ định',
+                      'Lịch sử thuốc',
+                      'Chi tiết khám',
+                      'Lịch sử khám'
+                    ]}
+                    activeIndex={typeExamine}
+                    handleActive={(index) => setTypeExamine(index)}
                   />
                   <div className="info-examine-content-tab-btn">
                     <ButtonComponent
@@ -195,40 +195,68 @@ const ExaminePatient = () => {
                 </div>
                 <div className="info-examine-content-right">
                   <div className="info-examine-content-right-header"></div>
-                  <div className='info-examine-content-right-step'>
-                    <div></div>
-                    <Steps
-                      // current={1}
-                      size="small"
-                      progressDot={customDot}
-                      items={[
-                        {
-                          title: 'Khảo sát'
-                        },
-                        {
-                          title: 'Khám tổng quát'
-                        },
-                        {
-                          title: 'Khám chuyên sâu'
-                        },
-                        {
-                          title: 'Chỉ định CLS'
-                        },
-                        {
-                          title: 'Kết quả CLS'
-                        },
-                        {
-                          title: 'Guidelin điều trị'
-                        },
-                        {
-                          title: 'Kết luận'
-                        },
-                        {
-                          title: 'Chăm sóc'
-                        }
-                      ]}
-                    />
-                  </div>
+                  <ExamineHead />
+                  {typeExamine === 0 && (
+                    <ProForm
+                      layout="horizontal"
+                      labelCol={{ span: 4 }}
+                      submitter={false}
+                    >
+                      <InputComponent name="reason" label="Lý do khám" />
+                      <InputComponent name="reasonOther" label="Lý do khác" />
+                      <InputComponent
+                        name="process"
+                        label="Quá trình bệnh lý"
+                      />
+                      <InputComponent
+                        name="total"
+                        label="Khám tổng quát toàn thân"
+                      />
+                      <InputComponent name="organ" label="Khám các cơ quan" />
+                      <InputComponent
+                        name="initial"
+                        label="Chuẩn đoán ban đầu"
+                      />
+                      <InputComponent name="status" label="Tình trạng bệnh" />
+                      <div className="info-examine-content-right-btn">
+                        <div className="more-item">
+                          <p>ICD ban đầu:</p>
+                          <div className="more-item-input">
+                            <input type="text" name="icd" />
+                            <input type="text" name="icd" />
+                          </div>
+                          <button style={{ backgroundColor: '#22C55E' }}>
+                            <img src={plusIcon} alt="plus" />
+                          </button>
+                        </div>
+                        <div className="more-item">
+                          <p></p>
+                          <div className="more-item-input">
+                            <input type="text" name="icd" />
+                            <input type="text" name="icd" />
+                          </div>
+                          <button style={{ backgroundColor: '#FF0000' }}>
+                            <img src={minusIcon} alt="minus" />
+                          </button>
+                        </div>
+                        <div className="more-item">
+                          <p></p>
+                          <div className="more-item-input">
+                            <input type="text" name="icd" />
+                            <input type="text" name="icd" />
+                          </div>
+                          <button style={{ backgroundColor: '#FF0000' }}>
+                            <img src={minusIcon} alt="minus" />
+                          </button>
+                        </div>
+                      </div>
+                    </ProForm>
+                  )}
+                  {typeExamine === 1 && (
+                    <div className="info-examine-content-right-content">
+                      <Exam1 />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

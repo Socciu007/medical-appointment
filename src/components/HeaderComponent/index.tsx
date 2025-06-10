@@ -6,12 +6,17 @@ import arrowIcon from '/assets/icons/icon-arrow-right.svg'
 import homeIcon from '/assets/icons/icon-home.svg'
 import openMenuIcon from '/assets/icons/icon-menu-open.svg'
 import addIcon from '/assets/icons/icon-plus.svg'
+import printIcon from '/assets/icons/icon-print.svg'
+import completeIcon from '/assets/icons/icon-complete.svg'
+import cancelIcon from '/assets/icons/icon-cancel.svg'
+import celenderIcon from '/assets/icons/icon-celender.svg'
 import ButtonComponent from '../ButtonComponent'
 import MenuComponent from '../MenuComponent'
 import { useState } from 'react'
 type HeaderComponentProps = {
   title: string;
   isShowActions?: boolean;
+  isShowInExamine?: boolean;
   isBtnSave?: boolean;
   isBtnPrint?: boolean;
   isBtnRefresh?: boolean;
@@ -27,6 +32,7 @@ type HeaderComponentProps = {
 const HeaderComponent = ({
   title,
   isShowActions,
+  isShowInExamine,
   isBtnSave = true,
   isBtnPrint = true,
   isBtnRefresh = true,
@@ -63,19 +69,22 @@ const HeaderComponent = ({
           ) : (
             <div
               onClick={() => setIsShowMenu(!isShowMenu)}
-              style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px',
+                cursor: 'pointer'
+              }}
             >
               <img src={openMenuIcon} alt="icon-menu-open" />
             </div>
           )}
-          {
-            !isShowMenu && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                <img src={arrowIcon} alt="icon-arrow-left" />
-                <h1 className="header-component-title-text">{title}</h1>
-              </div>
-            )
-          }
+          {!isShowMenu && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <img src={arrowIcon} alt="icon-arrow-left" />
+              <h1 className="header-component-title-text">{title}</h1>
+            </div>
+          )}
         </div>
         {isShowActions && (
           <div className="header-component-actions">
@@ -111,16 +120,50 @@ const HeaderComponent = ({
                 color="#666666"
               />
             )}
-            {
-              isBtnAdd && (
-                <ButtonComponent
-                  title="Thêm"
-                  icon={addIcon}
-                  onClick={handleAdd}
-                  color="#059669"
-                />
-              )
-            }
+            {isBtnAdd && (
+              <ButtonComponent
+                title="Thêm"
+                icon={addIcon}
+                onClick={handleAdd}
+                color="#059669"
+              />
+            )}
+          </div>
+        )}
+        {isShowInExamine && (
+          <div className="header-component-actions">
+            <ButtonComponent
+              title="Hẹn khám"
+              icon={celenderIcon}
+              onClick={() => {}}
+              color="#0084E2"
+              styleProps={{ width: 94 }}
+            />
+            <ButtonComponent
+              title="Hủy khám"
+              icon={cancelIcon}
+              onClick={() => {}}
+              color="#BB0505"
+              styleProps={{ width: 85 }}
+            />
+            <ButtonComponent
+              title="Kết thúc"
+              icon={completeIcon}
+              onClick={() => {}}
+              color="#C67606"
+            />
+            <ButtonComponent
+              title="In phiếu"
+              icon={printIcon}
+              onClick={handlePrint}
+              color="#059669"
+            />
+            <ButtonComponent
+              title="Lưu lại"
+              icon={saveIcon}
+              onClick={handleSave}
+              color="#059669"
+            />
           </div>
         )}
       </div>
