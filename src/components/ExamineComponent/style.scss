@@ -79,9 +79,15 @@
       padding-top: 23px;
       .ant-steps-item-content {
         margin-top: 0px;
+        width: 120px !important;
       }
     }
   }
+}
+
+.ant-steps-item-icon {
+  background: #0084E2 !important;
+  cursor: pointer;
 }
 
 .container-exam1 {
@@ -147,5 +153,68 @@
             height: 10px;
         }
     }
+  }
+}
+
+.assign-cls-container {
+  display: flex;
+  margin-top: 24px;
+  gap: 20px;
+  .left-panel {
+    width: 25%;
+    border: 1px solid #000;
+    .service-group {
+      text-align: start;
+      div {
+        margin-bottom: 4px;
+        padding: 0 10px;
+      }
+      .label {
+        margin-bottom: 4px;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: start;
+        background-color: #d9d9d9;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10px;
+      }
+    }
+  }
+  .right-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000;
+    .header-row {
+      display: flex;
+      height: 45px;
+      background-color: #d9d9d9;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #000;
+      .header-cell {
+        flex: 1;
+        padding: 10px;
+        border-right: 1px solid #ccc;
+        font-weight: bold;
+  
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+  }
+
+  .result-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #666;
   }
 }

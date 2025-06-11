@@ -14,6 +14,8 @@ import ExamineHead from '../../components/ExamineComponent/head'
 import { ProForm } from '@ant-design/pro-form'
 import InputComponent from '../../components/InputComponent'
 import Exam1 from '../../components/ExamineComponent/exam1'
+import AssignCLS from '../../components/ExamineComponent/assignCLS'
+import ExamCLS from '../../components/ExamineComponent/examCLS'
 const examineColumns = [
   {
     title: 'STT',
@@ -77,6 +79,7 @@ const examineColumns = [
 const ExaminePatient = () => {
   const [activeTab, setActiveTab] = useState(0)
   const [typeExamine, setTypeExamine] = useState(0)
+  const [current, setCurrent] = useState(1)
   const handleActiveTab = (index: number) => {
     setActiveTab(index)
   }
@@ -195,8 +198,8 @@ const ExaminePatient = () => {
                 </div>
                 <div className="info-examine-content-right">
                   <div className="info-examine-content-right-header"></div>
-                  <ExamineHead />
-                  {typeExamine === 0 && (
+                  <ExamineHead current={current} setCurrent={setCurrent} />
+                  {current === 1 && (
                     <ProForm
                       layout="horizontal"
                       labelCol={{ span: 4 }}
@@ -252,9 +255,19 @@ const ExaminePatient = () => {
                       </div>
                     </ProForm>
                   )}
-                  {typeExamine === 1 && (
+                  {current === 2 && (
                     <div className="info-examine-content-right-content">
                       <Exam1 />
+                    </div>
+                  )}
+                  {current === 3 && (
+                    <div className="info-examine-content-right-content">
+                      <AssignCLS />
+                    </div>
+                  )}
+                  {current === 4 && (
+                    <div className="info-examine-content-right-content">
+                      <ExamCLS />
                     </div>
                   )}
                 </div>

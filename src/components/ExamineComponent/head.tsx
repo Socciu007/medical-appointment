@@ -1,10 +1,16 @@
 import { Steps, Select, Popover } from 'antd'
 import type { StepsProps } from 'antd'
+import './style.scss'
 
-const ExamineHead = () => {
+const ExamineHead = ({ current, setCurrent }: { current: number; setCurrent: (current: number) => void }) => {
   // Custom dot for steps
-  const customDot: StepsProps['progressDot'] = (dot) => (
-    <Popover content={false}>{dot}</Popover>
+  const customDot: StepsProps['progressDot'] = (dot, { status, index }) => (
+    console.log(status, index),
+    <Popover content={false}>
+      <div className="custom-dot" onClick={() => setCurrent(index)}>
+        {dot}
+      </div>
+    </Popover>
   )
   return (
     <div className="info-examine-content-right-step">
@@ -29,7 +35,7 @@ const ExamineHead = () => {
         />
       </div>
       <Steps
-        // current={1}
+        current={current}
         size="small"
         progressDot={customDot}
         labelPlacement="horizontal"
