@@ -52,7 +52,7 @@ const ExamCLS = () => {
       />
       <InputComponent name="conclusion" label="Kết luận" />
       <SelectComponent width={200} name="direction" label="Hướng xử lý" options={[{ label: 'Ra về - kê đơn', value: 'go-home' }, { label: 'Nhập viện', value: 'go-hospital' }]} placeholder="Chọn hướng xử lý" />
-      <div className="more-item">
+      <div className="more-item" style={{ borderBottom: '1px solid #000', paddingBottom: '24px' }}>
         <p/>
         <div className="more-item-checkbox">
           <div className="is_revisit">
@@ -61,6 +61,11 @@ const ExamCLS = () => {
           </div>
           <SelectDatePicker name="date" label="Ngày hẹn tái khám" placeholder="Chọn ngày" width={280} />
         </div>
+      </div>
+
+      {/*  */}
+      <div className="info-examine-content-right-btn">
+        <button className="btn-primary">Lưu</button>
       </div>
     </ProForm>
   )

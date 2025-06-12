@@ -255,17 +255,17 @@ const ExaminePatient = () => {
                       </div>
                     </ProForm>
                   )}
-                  {current === 2 && (
+                  {current === 3 && (
                     <div className="info-examine-content-right-content">
                       <Exam1 />
                     </div>
                   )}
-                  {current === 3 && (
+                  {current === 4 && (
                     <div className="info-examine-content-right-content">
                       <AssignCLS />
                     </div>
                   )}
-                  {current === 4 && (
+                  {current === 6 && (
                     <div className="info-examine-content-right-content">
                       <ExamCLS />
                     </div>

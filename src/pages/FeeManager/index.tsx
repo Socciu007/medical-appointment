@@ -301,93 +301,97 @@ const FeeManager = () => {
                   activeIndex={activeTabPayment}
                   handleActive={handleActiveTabPayment}
                 />
-                <div className="container-content-main-form">
-                  <ProForm
-                    layout="horizontal"
-                    submitter={false}
-                    labelCol={{ span: 9 }}
-                    wrapperCol={{ span: 16 }}
-                    className="container-content-main-form-payment"
-                  >
-                    <ProForm.Group>
-                      <ProFormDigit
-                        label="Tổng thanh toán"
-                        name="total"
-                        placeholder="0"
-                      />
-                      <ProFormDigit
-                        label="Đã tạm ứng"
-                        name="total"
-                        placeholder="0"
-                      />
-                      <div className="check-package">
-                        <ProFormCheckbox label="" name="isPackage" />
-                        <p>Có sử dụng gói</p>
+                {activeTabPayment === 1 && (
+                  <>
+                    <div className="container-content-main-form">
+                      <ProForm
+                        layout="horizontal"
+                        submitter={false}
+                        labelCol={{ span: 9 }}
+                        wrapperCol={{ span: 16 }}
+                        className="container-content-main-form-payment"
+                      >
+                        <ProForm.Group>
+                          <ProFormDigit
+                            label="Tổng thanh toán"
+                            name="total"
+                            placeholder="0"
+                          />
+                          <ProFormDigit
+                            label="Đã tạm ứng"
+                            name="total"
+                            placeholder="0"
+                          />
+                          <div className="check-package">
+                            <ProFormCheckbox label="" name="isPackage" />
+                            <p>Có sử dụng gói</p>
+                          </div>
+                          <SelectComponent
+                            label="Gói áp dụng"
+                            name="package"
+                            placeholder="Chọn gói"
+                            options={[]}
+                          />
+                        </ProForm.Group>
+                        <ProForm.Group>
+                          <ProFormDigit
+                            label="Tiền thanh toán"
+                            name="money"
+                            placeholder="0"
+                          />
+                          <SelectComponent
+                            label="Hình thức TT"
+                            name="payment"
+                            placeholder="Chọn hình thức"
+                            options={[]}
+                          />
+                          <div className="check-guarantee">
+                            <ProFormCheckbox label="" name="isGuarantee" />
+                            <p>Có bảo lãnh</p>
+                          </div>
+                          <SelectComponent
+                            label="Hãng BH"
+                            name="guarantee"
+                            placeholder="Chọn hãng BH"
+                            options={[]}
+                          />
+                        </ProForm.Group>
+                        <ProForm.Group>
+                          <ProFormDigit
+                            label="Giảm giá"
+                            name="discount"
+                            placeholder="0"
+                          />
+                        </ProForm.Group>
+                      </ProForm>
+                      <div className="container-content-main-form-qr">
+                        <div className="container-content-main-form-qr-qr">
+                          <img src={qrIcon} alt="qr" />
+                        </div>
+                        <div className="container-content-main-form-qr-text">
+                          <p>Công ty CP Y dược Vietlife</p>
+                          <p>MB Bank: 1966688899</p>
+                        </div>
                       </div>
-                      <SelectComponent
-                        label="Gói áp dụng"
-                        name="package"
-                        placeholder="Chọn gói"
-                        options={[]}
-                      />
-                    </ProForm.Group>
-                    <ProForm.Group>
-                      <ProFormDigit
-                        label="Tiền thanh toán"
-                        name="money"
-                        placeholder="0"
-                      />
-                      <SelectComponent
-                        label="Hình thức TT"
-                        name="payment"
-                        placeholder="Chọn hình thức"
-                        options={[]}
-                      />
-                      <div className="check-guarantee">
-                        <ProFormCheckbox label="" name="isGuarantee" />
-                        <p>Có bảo lãnh</p>
-                      </div>
-                      <SelectComponent
-                        label="Hãng BH"
-                        name="guarantee"
-                        placeholder="Chọn hãng BH"
-                        options={[]}
-                      />
-                    </ProForm.Group>
-                    <ProForm.Group>
-                      <ProFormDigit
-                        label="Giảm giá"
-                        name="discount"
-                        placeholder="0"
-                      />
-                    </ProForm.Group>
-                  </ProForm>
-                  <div className="container-content-main-form-qr">
-                    <div className="container-content-main-form-qr-qr">
-                      <img src={qrIcon} alt="qr" />
                     </div>
-                    <div className="container-content-main-form-qr-text">
-                      <p>Công ty CP Y dược Vietlife</p>
-                      <p>MB Bank: 1966688899</p>
-                    </div>
-                  </div>
-                </div>
-                <TableComponent
-                  rowKey="id"
-                  rowSelection={{
-                    onChange: (selectedRowKeys, selectedRows) => {
-                      console.log(
-                        `selectedRowKeys: ${selectedRowKeys}`,
-                        'selectedRows: ',
-                        selectedRows
-                      )
-                    }
-                  }}
-                  columns={paymentColumns}
-                  dataSource={[]}
-                  pagination={false}
-                  search={false}
-                />
+                    <TableComponent
+                      rowKey="id"
+                      rowSelection={{
+                        onChange: (selectedRowKeys, selectedRows) => {
+                          console.log(
+                            `selectedRowKeys: ${selectedRowKeys}`,
+                            'selectedRows: ',
+                            selectedRows
+                          )
+                        }
+                      }}
+                      columns={paymentColumns}
+                      dataSource={[]}
+                      pagination={false}
+                      search={false}
+                    />
+                  </>
+                )}
               </div>
             </>
           )}
