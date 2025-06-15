@@ -143,7 +143,12 @@ const FeeManager = () => {
       <div className="container">
         {/* Header */}
         <div className="container-header">
-          <HeaderComponent title="Thanh toán" isShowActions={false} />
+          <HeaderComponent
+            title="Thanh toán"
+            isShowActions={true}
+            isPayment={true}
+            handlePayment={() => {}}
+          />
         </div>
 
         {/* Content */}

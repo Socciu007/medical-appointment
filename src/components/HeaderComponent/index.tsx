@@ -10,6 +10,7 @@ import printIcon from '/assets/icons/icon-print.svg'
 import completeIcon from '/assets/icons/icon-complete.svg'
 import cancelIcon from '/assets/icons/icon-cancel.svg'
 import celenderIcon from '/assets/icons/icon-celender.svg'
+import paymentIcon from '/assets/icons/icon-dollar.svg'
 import ButtonComponent from '../ButtonComponent'
 import MenuComponent from '../MenuComponent'
 import { useState } from 'react'
@@ -22,11 +23,13 @@ type HeaderComponentProps = {
   isBtnRefresh?: boolean;
   isBtnAction?: boolean;
   isBtnAdd?: boolean;
+  isPayment?: boolean;
   handleSave?: () => void;
   handleRefresh?: () => void;
   handlePrint?: () => void;
   handleAction?: () => void;
   handleAdd?: () => void;
+  handlePayment?: () => void;
 };
 
 const HeaderComponent = ({
@@ -38,11 +41,13 @@ const HeaderComponent = ({
   isBtnRefresh = true,
   isBtnAction = true,
   isBtnAdd = false,
+  isPayment = false,
   handleSave,
   handleRefresh,
   handlePrint,
   handleAction,
-  handleAdd
+  handleAdd,
+  handlePayment
 }: HeaderComponentProps) => {
   const [isShowMenu, setIsShowMenu] = useState(false)
   return (
@@ -88,6 +93,15 @@ const HeaderComponent = ({
         </div>
         {isShowActions && (
           <div className="header-component-actions">
+            {isPayment && (
+              <ButtonComponent
+                title="Thanh toán"
+                icon={paymentIcon}
+                onClick={handlePayment}
+                color="#0284C7"
+                styleProps={{ width: 90 }}
+              />
+            )}
             {isBtnAction && (
               <ButtonComponent
                 title="Tác vụ"
